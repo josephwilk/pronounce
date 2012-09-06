@@ -12,6 +12,12 @@ module Pronounce
       File.read("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.symbols").
            split("\r\n")
     end
+    
+    def phones
+      File.read("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.phones").
+           split("\n").
+           reduce({}){|phones, phone| phone, type = *phone.split("\t"); phones.merge({phone => type}) }
+    end
 
     private
   
