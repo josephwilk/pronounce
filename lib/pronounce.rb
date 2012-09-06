@@ -7,6 +7,11 @@ module Pronounce
       @pronouncation_dictionary ||= build_pronuciation_dictionary
       @pronouncation_dictionary[word.downcase]
     end
+    
+    def symbols
+      File.read("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.symbols").
+           split("\r\n")
+    end
 
     private
   
