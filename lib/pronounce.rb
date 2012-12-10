@@ -23,7 +23,10 @@ module Pronounce
       File.readlines("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}").each do |line|
         word, *pron = line.strip.split(' ')
         next unless word && !word.empty? && !word[/[^A-Z]+/]
-        dictionary[word.downcase] = split_syllables(pron)
+        pron = split_syllables(pron.map{|symbol| Phone.create symbol })
+        dictionary[word.downcase] = pron.map do |syllable|
+          syllable.map {|phone| phone.to_s }
+        end
       end
 
       dictionary
@@ -46,7 +49,7 @@ module Pronounce
       return false if index == 0
 
       return false unless index < word.length - 1
-      Phone.find(word[index]) <= Phone.find(word[index+1]) && Phone.find(word[index]) < Phone.find(word[index-1])
+      word[index] <= word[index+1] && word[index] < word[index-1]
     end
 
   end
