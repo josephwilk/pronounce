@@ -1,4 +1,4 @@
-require_relative '../lib/phone'
+require 'spec_helper'
 
 module Pronounce
   describe Phone do
@@ -47,6 +47,16 @@ module Pronounce
 
       it 'fails when trying to compare to a non-Phone' do
         expect { Phone.create('P') < "CH" }.to raise_error ArgumentError
+      end
+    end
+
+    describe '#syllabic?' do
+      it 'is true for vowels' do
+        Phone.create('AA').syllabic?.should be_true
+      end
+
+      it 'is false for consonants' do
+        Phone.create('ZH').syllabic?.should be_false
       end
     end
 

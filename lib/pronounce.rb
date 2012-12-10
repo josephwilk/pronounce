@@ -1,4 +1,5 @@
-require_relative 'phone'
+require 'phone'
+require 'syllable_rules/sonority_sequencing_principle'
 
 module Pronounce
   CMUDICT_VERSION = '0.7a'
@@ -48,8 +49,7 @@ module Pronounce
     def new_syllable?(word, index)
       return false if index == 0
 
-      return false unless index < word.length - 1
-      word[index] <= word[index+1] && word[index] < word[index-1]
+      SyllableRules::SonoritySequencingPrinciple.evaluate(word, index)
     end
 
   end

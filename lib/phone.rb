@@ -1,5 +1,3 @@
-require_relative 'pronounce'
-
 module Pronounce
   class Phone
     include Comparable
@@ -35,13 +33,19 @@ module Pronounce
 
       def create_phone_type(symbol, articulation)
         phone = Pronounce.const_set(symbol, Class.new(Phone))
-        phone.instance_eval <<-END
-          def articulation
-            '#{articulation}'
+        phone.class_eval <<-END
+          class << self
+            def articulation
+              '#{articulation}'
+            end
+
+            def sonority
+              #{sonority_of articulation}
+            end
           end
 
-          def sonority
-            #{sonority_of articulation}
+          def syllabic?
+            #{articulation == 'vowel'}
           end
         END
         phone

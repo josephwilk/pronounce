@@ -1,16 +1,13 @@
-require_relative '../lib/pronounce'
+require 'spec_helper'
 
 describe Pronounce do
-  describe ".how_do_i_pronounce" do
-    it "should return a list of phones" do
+  describe '.how_do_i_pronounce' do
+    it 'should return a list of phones' do
       Pronounce.how_do_i_pronounce('monk').should == [['M', 'AH1', 'NG', 'K']]
-      Pronounce.how_do_i_pronounce('fan').should == [['F', 'AE1', 'N']]
-      Pronounce.how_do_i_pronounce('plant').should == [['P', 'L', 'AE1', 'N', 'T']]
     end
 
     it 'should group the phones by syllable' do
       Pronounce.how_do_i_pronounce('monkeys').should == [['M', 'AH1', 'NG'], ['K', 'IY0', 'Z']]
-      Pronounce.how_do_i_pronounce('monkeylike').should == [['M', 'AH1', 'NG'], ['K', 'IY0'], ['L', 'AY2', 'K']]
     end
   end
 
