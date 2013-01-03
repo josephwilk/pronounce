@@ -39,6 +39,7 @@ module Pronounce
 
     describe '#<=>' do
       it 'is comparable based on sonority' do
+        Phone.create('AH').should == Phone.create('UW')
         Phone.create('P').should be <  Phone.create('CH')
         Phone.create('F').should be <= Phone.create('Z')
         Phone.create('M').should be >= Phone.create('N')
@@ -46,7 +47,21 @@ module Pronounce
       end
 
       it 'fails when trying to compare to a non-Phone' do
-        expect { Phone.create('P') < "CH" }.to raise_error ArgumentError
+        expect { Phone.create('P') < 'CH' }.to raise_error ArgumentError
+      end
+    end
+
+    describe '#eql?' do
+      it 'is true for an instance of the same Phone' do
+        Phone.create('AH').should eql Phone.create('AH')
+      end
+
+      it 'is false for a different Phones' do
+        Phone.create('AH').should_not eql Phone.create('UW')
+      end
+
+      it 'is false for a non-Phone' do
+        Phone.create('AH').should_not eql 'AH'
       end
     end
 

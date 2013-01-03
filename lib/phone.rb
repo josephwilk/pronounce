@@ -71,6 +71,10 @@ module Pronounce
       @stress = stress
     end
 
+    def eql?(phone)
+      self.class == phone.class
+    end
+
     def to_s
       "#{self.class.name.split('::').last}#{@stress}"
     end
@@ -78,7 +82,7 @@ module Pronounce
     private
 
     def <=>(phone)
-      phone.is_a?(Phone) ? self.class.sonority <=> phone.class.sonority : nil
+      self.class.sonority <=> phone.class.sonority if Phone === phone
     end
 
   end
