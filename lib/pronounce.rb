@@ -1,4 +1,5 @@
 require 'phone'
+require 'syllabification_context'
 require 'syllable_rules/sonority_sequencing_principle'
 
 module Pronounce
@@ -37,7 +38,7 @@ module Pronounce
       syllables = []
       syllable = []
       word.each_with_index do |phone, i|
-        if new_syllable?(word, i)
+        if new_syllable? SyllabificationContext.new(word, i)
           syllables << syllable
           syllable = []
         end
@@ -46,10 +47,10 @@ module Pronounce
       syllables << syllable
     end
 
-    def new_syllable?(word, index)
-      return false if index == 0
+    def new_syllable?(context)
+      return false if context.word_beginning?
 
-      SyllableRules::SonoritySequencingPrinciple.evaluate(word, index)
+      SyllableRules::SonoritySequencingPrinciple.evaluate(context)
     end
 
   end

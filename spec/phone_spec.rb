@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Pronounce
   describe Phone do
-    describe ".all" do
+    describe '.all' do
       it 'lists all English phones' do
         Phone.all.should == {AA => 'vowel',     L  => 'liquid',
                              AE => 'vowel',     M  => 'nasal',
@@ -52,16 +52,18 @@ module Pronounce
     end
 
     describe '#eql?' do
+      subject { Phone.create('AH') }
+
       it 'is true for an instance of the same Phone' do
-        Phone.create('AH').should eql Phone.create('AH')
+        should eql Phone.create('AH')
       end
 
       it 'is false for a different Phones' do
-        Phone.create('AH').should_not eql Phone.create('UW')
+        should_not eql Phone.create('UW')
       end
 
       it 'is false for a non-Phone' do
-        Phone.create('AH').should_not eql 'AH'
+        should_not eql 'AH'
       end
     end
 
