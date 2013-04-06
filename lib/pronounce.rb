@@ -38,7 +38,7 @@ module Pronounce
       syllables = []
       syllable = []
       word.each_with_index do |phone, i|
-        if new_syllable? SyllabificationContext.new(word, i)
+        if new_syllable? SyllabificationContext.new(syllables, word, i)
           syllables << syllable
           syllable = []
         end

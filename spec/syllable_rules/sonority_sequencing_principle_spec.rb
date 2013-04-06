@@ -3,10 +3,11 @@ require 'spec_helper'
 module Pronounce::SyllableRules
   describe SonoritySequencingPrinciple do
     subject do
-      context = Pronounce::SyllabificationContext.new word, index
+      context = Pronounce::SyllabificationContext.new syllables, word, index
       SonoritySequencingPrinciple.evaluate context
     end
 
+    let(:syllables) { [] }
     let(:word) { build_word 'OW', 'AA', 'NG', 'T', 'R', 'UW', 'F' }
 
     context 'for a vowel preceded by another vowel' do

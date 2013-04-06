@@ -1,28 +1,33 @@
 module Pronounce
   class SyllabificationContext
-    def initialize(word, index)
-      @word = word
-      @index = index
+    def initialize(completed_syllables, phones, phone_index)
+      @completed_syllables = completed_syllables
+      @phones = phones
+      @phone_index = phone_index
     end
 
     def current_phone
-      @word[@index]
+      @phones[@phone_index]
     end
 
     def next_phone
-      @word[@index + 1] unless word_end?
+      @phones[@phone_index + 1] unless word_end?
     end
 
     def previous_phone
-      @word[@index - 1] unless word_beginning?
+      @phones[@phone_index - 1] unless word_beginning?
+    end
+
+    def pending_syllable
+      @phones.slice(@completed_syllables.flatten.count...@phone_index)
     end
 
     def word_beginning?
-      @index == 0
+      @phone_index == 0
     end
 
     def word_end?
-      @index == @word.length - 1
+      @phone_index == @phones.length - 1
     end
 
   end
