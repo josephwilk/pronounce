@@ -19,7 +19,7 @@ module Pronounce
     end
 
     def pending_syllable
-      @phones.slice(@completed_syllables.flatten.count...@phone_index)
+      Syllable.new(@phones.slice(completed_length...@phone_index))
     end
 
     def word_beginning?
@@ -28,6 +28,12 @@ module Pronounce
 
     def word_end?
       @phone_index == @phones.length - 1
+    end
+
+    private
+
+    def completed_length
+      @completed_syllables.map(&:length).reduce(0, :+)
     end
 
   end

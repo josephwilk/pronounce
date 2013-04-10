@@ -2,10 +2,10 @@ require 'spec_helper'
 
 module Pronounce
   describe SyllabificationContext do
-    subject { SyllabificationContext.new syllables, test_word, index }
+    subject { SyllabificationContext.new syllables, phones, index }
 
-    let(:syllables) { [build_word('AE0', 'N')] }
-    let(:test_word) { build_word 'AE0', 'N', 'D', 'R', 'AA1', 'M', 'AH0', 'D', 'AH0' }
+    let(:syllables) { [make_syllable('AE0', 'N')] }
+    let(:phones) { make_phones 'AE0', 'N', 'D', 'R', 'AA1', 'M', 'AH0', 'D', 'AH0' }
 
     context 'for the first phone' do
       let(:index) { 0 }
@@ -41,7 +41,7 @@ module Pronounce
       let(:index) { 4 }
 
       it 'is everything between the completed syllables and the current phone' do
-        expect(subject.pending_syllable).to eq build_word('D', 'R')
+        expect(subject.pending_syllable.as_strings).to eq ['D', 'R']
       end
     end
 

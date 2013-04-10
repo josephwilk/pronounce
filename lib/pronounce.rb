@@ -1,5 +1,6 @@
 require 'phone'
 require 'syllabification_context'
+require 'syllable'
 require 'syllable_rules/sonority_sequencing_principle'
 
 module Pronounce
@@ -26,9 +27,7 @@ module Pronounce
         word, *pron = line.strip.split(' ')
         next unless word && !word.empty? && !word[/[^A-Z]+/]
         pron = split_syllables(pron.map{|symbol| Phone.create symbol })
-        dictionary[word.downcase] = pron.map do |syllable|
-          syllable.map {|phone| phone.to_s }
-        end
+        dictionary[word.downcase] = pron.map {|syllable| syllable.as_strings }
       end
 
       dictionary
@@ -36,15 +35,15 @@ module Pronounce
 
     def split_syllables(word)
       syllables = []
-      syllable = []
+      pending_phones = []
       word.each_with_index do |phone, i|
         if new_syllable? SyllabificationContext.new(syllables, word, i)
-          syllables << syllable
-          syllable = []
+          syllables << Syllable.new(pending_phones)
+          pending_phones = []
         end
-        syllable << phone
+        pending_phones << phone
       end
-      syllables << syllable
+      syllables << Syllable.new(pending_phones)
     end
 
     def new_syllable?(context)
