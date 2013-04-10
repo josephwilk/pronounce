@@ -2,6 +2,7 @@ require 'phone'
 require 'syllabification_context'
 require 'syllable'
 require 'syllable_rules/sonority_sequencing_principle'
+require 'syllable_rules/english/disallow_ng'
 
 module Pronounce
   CMUDICT_VERSION = '0.7a'
@@ -49,6 +50,8 @@ module Pronounce
     def new_syllable?(context)
       return false if context.word_beginning?
 
+      is_new_syllable = SyllableRules::English::DisallowNG.evaluate(context)
+      return is_new_syllable unless is_new_syllable.nil?
       SyllableRules::SonoritySequencingPrinciple.evaluate(context)
     end
 
