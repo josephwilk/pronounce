@@ -21,12 +21,9 @@ module Pronounce
     attr_reader :phones
 
     def coda
-      sections = phones.chunk {|item| item.syllabic? }.map {|_, section| section }
-      if sections.length == 3 || sections.length == 2 && sections[0][0].syllabic?
-        sections[-1]
-      else
-        []
-      end
+      phones.chunk {|item| item.syllabic? }.
+        drop_while {|syllabic, _| !syllabic }.  # drop onset
+        collect {|_, section | section }.fetch(1, [])
     end
 
   end
