@@ -1,9 +1,7 @@
-# encoding: UTF-8
-
 require 'spec_helper'
 
 describe Pronounce do
-  describe '.how_do_i_pronounce' do
+  describe '#how_do_i_pronounce' do
     it 'returns a list of phones' do
       Pronounce.how_do_i_pronounce('monk').should == [['M', 'AH1', 'NG', 'K']]
     end
@@ -11,15 +9,9 @@ describe Pronounce do
     it 'groups the phones by syllable' do
       Pronounce.how_do_i_pronounce('monkeys').should == [['M', 'AH1', 'NG'], ['K', 'IY0', 'Z']]
     end
-
-    describe 'applies English rules' do
-      it 'for /ŋ/' do
-        Pronounce.how_do_i_pronounce('hanging').should == [['HH', 'AE1', 'NG'], ['IH0', 'NG']]
-      end
-    end
   end
 
-  describe '.symbols' do
+  describe '#symbols' do
     it 'lists all symbols' do
       Pronounce.symbols.should == ['AA',  'AA0', 'AA1', 'AA2', 'AE',  'AE0',
                                    'AE1', 'AE2', 'AH',  'AH0', 'AH1', 'AH2',

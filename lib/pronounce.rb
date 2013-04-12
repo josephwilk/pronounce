@@ -1,8 +1,4 @@
-require 'phone'
-require 'syllabification_context'
-require 'syllable'
-require 'syllable_rules/sonority_sequencing_principle'
-require 'syllable_rules/english/disallow_ng'
+require 'word'
 
 module Pronounce
   CMUDICT_VERSION = '0.7a'
@@ -10,8 +6,8 @@ module Pronounce
 
   class << self
     def how_do_i_pronounce(word)
-      @pronouncation_dictionary ||= build_pronuciation_dictionary
-      @pronouncation_dictionary[word.downcase]
+      @pronouncations ||= build_pronuciation_dictionary
+      @pronouncations[word.downcase].syllables.map {|syllable| syllable.as_strings }
     end
 
     def symbols
@@ -25,34 +21,12 @@ module Pronounce
       dictionary = {}
 
       File.readlines("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}").each do |line|
-        word, *pron = line.strip.split(' ')
+        word, *raw_phones = line.strip.split
         next unless word && !word.empty? && !word[/[^A-Z]+/]
-        pron = split_syllables(pron.map{|symbol| Phone.create symbol })
-        dictionary[word.downcase] = pron.map {|syllable| syllable.as_strings }
+        dictionary[word.downcase] = Word.new raw_phones
       end
 
       dictionary
-    end
-
-    def split_syllables(word)
-      syllables = []
-      pending_phones = []
-      word.each_with_index do |phone, i|
-        if new_syllable? SyllabificationContext.new(syllables, word, i)
-          syllables << Syllable.new(pending_phones)
-          pending_phones = []
-        end
-        pending_phones << phone
-      end
-      syllables << Syllable.new(pending_phones)
-    end
-
-    def new_syllable?(context)
-      return false if context.word_beginning?
-
-      is_new_syllable = SyllableRules::English::DisallowNG.evaluate(context)
-      return is_new_syllable unless is_new_syllable.nil?
-      SyllableRules::SonoritySequencingPrinciple.evaluate(context)
     end
 
   end
