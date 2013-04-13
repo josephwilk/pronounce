@@ -61,6 +61,12 @@ module Pronounce::SyllableRules
         it { should == false }
       end
 
+      context 'vowel preceded by a consonant that is part of a coda' do
+        let(:index) { 3 }
+        let(:phones) { make_phones 'CH', 'EH1', 'R', 'IY0' } # cherry
+        it { should == true }
+      end
+
       context 'vowel preceded by another vowel' do
         let(:phones) { make_phones 'HH', 'AH0', 'W', 'AY1', 'IY2' } # Hawaii
         let(:syllables) { [make_syllable('HH', 'AH0')] }
