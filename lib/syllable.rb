@@ -31,12 +31,13 @@ module Pronounce
     def coda
       phones.chunk {|item| item.syllabic? }.
         drop_while {|syllabic, _| !syllabic }. # drop onset
-        collect {|_, section | section }.fetch(1, [])
+        collect {|_, section| section }.fetch(1, [])
     end
 
     def nucleus
       phones.chunk {|item| item.syllabic? }.
-        find {|syllabic, _| syllabic }.fetch(1, [])
+        select {|syllabic, _| syllabic }.
+        collect {|_, section| section }.fetch(0, [])
     end
 
   end

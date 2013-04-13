@@ -5,7 +5,8 @@ require 'spec_helper'
 module Pronounce::SyllableRules::English
   describe DisallowNG do
     subject do
-      DisallowNG.evaluate Pronounce::SyllabificationContext.new([], phones, index)
+      context = Pronounce::SyllabificationContext.new [], phones, index
+      DisallowNG.evaluate context
     end
 
     let(:phones) { make_phones 'AA', 'B', 'NG', 'EH', 'NG', 'ER', 'M', 'OW' }
