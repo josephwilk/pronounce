@@ -67,6 +67,16 @@ module Pronounce
       end
     end
 
+    describe '#stress' do
+      it 'is an integer' do
+        Phone.create('OY2').stress.should == 2
+      end
+
+      it 'is nil for consonants' do
+        Phone.create('ZH').stress.should be_nil
+      end
+    end
+
     describe '#syllabic?' do
       it 'is true for vowels' do
         Phone.create('AA').syllabic?.should be_true

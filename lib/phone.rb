@@ -67,8 +67,10 @@ module Pronounce
 
     end
 
+    attr_reader :stress
+
     def initialize(stress)
-      @stress = stress
+      @stress = stress.to_i if stress
     end
 
     def eql?(phone)
@@ -76,7 +78,7 @@ module Pronounce
     end
 
     def to_s
-      "#{self.class.name.split('::').last}#{@stress}"
+      "#{self.class.name.split('::').last}#{stress}"
     end
 
     private

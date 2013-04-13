@@ -16,14 +16,23 @@ module Pronounce
       phones.count
     end
 
+    def stressed?
+      nucleus.any? {|phone| phone.stress > 0 }
+    end
+
     private
 
     attr_reader :phones
 
     def coda
       phones.chunk {|item| item.syllabic? }.
-        drop_while {|syllabic, _| !syllabic }.  # drop onset
+        drop_while {|syllabic, _| !syllabic }. # drop onset
         collect {|_, section | section }.fetch(1, [])
+    end
+
+    def nucleus
+      phones.chunk {|item| item.syllabic? }.
+        find {|syllabic, _| syllabic }.fetch(1, [])
     end
 
   end

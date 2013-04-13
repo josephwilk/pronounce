@@ -8,8 +8,6 @@ module Pronounce
     its(:length) { should == 3 }
 
     context 'with a nucleus and coda' do
-      subject { make_syllable 'AE1', 'D', 'Z' }
-
       describe '#coda_contains' do
         it 'part of the coda is true' do
           expect(subject.coda_contains? Phone.create('D')).to eq true
@@ -25,6 +23,15 @@ module Pronounce
           expect(subject.coda_contains? Phone.create('N')).to eq false
         end
       end
+    end
+
+    context 'with a stressed vowel' do
+      its(:stressed?) { should == true }
+    end
+
+    context 'with an unstressed vowel' do
+      subject { make_syllable 'AH0', 'N' }
+      its(:stressed?) { should == false }
     end
 
   end
