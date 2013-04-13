@@ -16,6 +16,10 @@ module Pronounce
       phones.count
     end
 
+    def light?
+      nucleus.all? {|phone| phone.short? } && coda.empty?
+    end
+
     def stressed?
       nucleus.any? {|phone| phone.stress > 0 }
     end

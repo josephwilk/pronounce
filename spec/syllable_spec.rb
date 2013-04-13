@@ -13,9 +13,25 @@ module Pronounce
           expect(subject.coda_contains? Phone.create('D')).to eq true
         end
       end
+
+      its(:light?) { should == false }
     end
 
-    context 'with only and onset (pending syllables only)' do
+    context 'with no coda and a nucleus' do
+      context 'which is short' do
+        subject { make_syllable 'B', 'IH1' }
+
+        its(:light?) { should == true }
+      end
+
+      context 'which is long' do
+        subject { make_syllable 'B', 'AY1' }
+
+        its(:light?) { should == false }
+      end
+    end
+
+    context 'with an onset only (pending syllables only)' do
       subject { make_syllable 'N' }
 
       describe '#coda_contains' do

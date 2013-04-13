@@ -44,6 +44,10 @@ module Pronounce
             end
           end
 
+          def short?
+            #{['AE', 'AH', 'EH', 'IH', 'UH'].include? symbol}
+          end
+
           def syllabic?
             #{articulation == 'vowel'}
           end
