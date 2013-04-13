@@ -7,7 +7,10 @@ module Pronounce
   class << self
     def how_do_i_pronounce(word)
       @pronouncations ||= build_pronuciation_dictionary
-      @pronouncations[word.downcase].syllables.map {|syllable| syllable.as_strings }
+      word = word.downcase
+      if @pronouncations[word]
+        @pronouncations[word].syllables.map {|syllable| syllable.as_strings }
+      end
     end
 
     def symbols

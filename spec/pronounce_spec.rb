@@ -9,6 +9,10 @@ describe Pronounce do
     it 'groups the phones by syllable' do
       Pronounce.how_do_i_pronounce('monkeys').should == [['M', 'AH1', 'NG'], ['K', 'IY0', 'Z']]
     end
+
+    it 'returns nil for unknown words' do
+      Pronounce.how_do_i_pronounce('beeblebrox').should == nil
+    end
   end
 
   describe '#symbols' do
