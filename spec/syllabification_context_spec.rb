@@ -37,7 +37,7 @@ module Pronounce
       its(:previous_phone) { should be_an D }
     end
 
-    describe '.pending_syllable' do
+    describe '#pending_syllable' do
       let(:index) { 4 }
 
       it 'is everything between the completed syllables and the current phone' do

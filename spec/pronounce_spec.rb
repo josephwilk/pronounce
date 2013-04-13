@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Pronounce do
-  describe '#how_do_i_pronounce' do
+  describe '.how_do_i_pronounce' do
     it 'returns a list of phones' do
       Pronounce.how_do_i_pronounce('monk').should == [['M', 'AH1', 'NG', 'K']]
     end
@@ -15,7 +15,7 @@ describe Pronounce do
     end
   end
 
-  describe '#symbols' do
+  describe '.symbols' do
     it 'lists all symbols' do
       Pronounce.symbols.should == ['AA',  'AA0', 'AA1', 'AA2', 'AE',  'AE0',
                                    'AE1', 'AE2', 'AH',  'AH0', 'AH1', 'AH2',
