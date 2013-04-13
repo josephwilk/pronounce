@@ -4,7 +4,7 @@ module Pronounce
       @phones = phones
     end
 
-    def as_strings
+    def to_strings
       phones.map {|phone| phone.to_s }
     end
 

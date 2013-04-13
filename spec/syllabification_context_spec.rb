@@ -41,7 +41,7 @@ module Pronounce
       let(:index) { 4 }
 
       it 'is everything between the completed syllables and the current phone' do
-        expect(subject.pending_syllable.as_strings).to eq ['D', 'R']
+        expect(subject.pending_syllable.to_strings).to eq ['D', 'R']
       end
     end
 

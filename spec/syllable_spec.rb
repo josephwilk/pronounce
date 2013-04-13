@@ -4,7 +4,7 @@ module Pronounce
   describe Syllable do
     subject { make_syllable 'AE1', 'D', 'Z' }
 
-    its(:as_strings) { should == ['AE1', 'D', 'Z'] }
+    its(:to_strings) { should == ['AE1', 'D', 'Z'] }
     its(:length) { should == 3 }
 
     context 'with a nucleus and coda' do

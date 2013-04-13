@@ -9,7 +9,7 @@ module Pronounce
       @pronouncations ||= build_pronuciation_dictionary
       word = word.downcase
       if @pronouncations[word]
-        @pronouncations[word].syllables.map {|syllable| syllable.as_strings }
+        @pronouncations[word].syllables.map {|syllable| syllable.to_strings }
       end
     end
 

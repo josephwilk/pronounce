@@ -5,7 +5,7 @@ require 'spec_helper'
 module Pronounce
   describe Word do
     describe '.syllables' do
-      subject { word.syllables.map {|syllable| syllable.as_strings } }
+      subject { word.syllables.map {|syllable| syllable.to_strings } }
 
       describe 'returns a list of phones' do
         let(:word) { Word.new ['M', 'AH1', 'NG', 'K'] }
