@@ -1,6 +1,7 @@
 # encoding: UTF-8
 
 require 'spec_helper'
+require 'syllable_rules/english/disallow_ng'
 
 module Pronounce::SyllableRules::English
   describe DisallowNG do

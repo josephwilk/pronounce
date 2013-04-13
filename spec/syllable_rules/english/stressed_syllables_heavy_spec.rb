@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'syllable_rules/english/stressed_syllables_heavy'
 
 module Pronounce::SyllableRules::English
   describe StressedSyllablesHeavy do

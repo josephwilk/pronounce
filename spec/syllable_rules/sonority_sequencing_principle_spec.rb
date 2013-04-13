@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'syllable_rules/sonority_sequencing_principle'
 
 module Pronounce::SyllableRules
   describe SonoritySequencingPrinciple do

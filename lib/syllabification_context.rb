@@ -1,3 +1,5 @@
+require 'syllable'
+
 module Pronounce
   class SyllabificationContext
     def initialize(completed_syllables, phones, phone_index)

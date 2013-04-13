@@ -1,3 +1,5 @@
+require 'pronounce'
+
 module Pronounce
   class Phone
     include Comparable

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pronounce'
 
 describe Pronounce do
   describe '.how_do_i_pronounce' do
