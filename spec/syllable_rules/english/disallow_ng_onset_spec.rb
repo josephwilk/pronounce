@@ -1,13 +1,13 @@
 # encoding: UTF-8
 
 require 'spec_helper'
-require 'syllable_rules/english/disallow_ng'
+require 'syllable_rules/english/disallow_ng_onset'
 
 module Pronounce::SyllableRules::English
-  describe DisallowNG do
+  describe DisallowNGOnset do
     subject do
       context = Pronounce::SyllabificationContext.new [], phones, index
-      DisallowNG.evaluate context
+      DisallowNGOnset.evaluate context
     end
 
     let(:phones) { make_phones 'AA', 'B', 'NG', 'EH', 'NG', 'ER', 'M', 'OW' }

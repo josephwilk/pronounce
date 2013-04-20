@@ -2,7 +2,7 @@ require 'phone'
 require 'syllabification_context'
 require 'syllable'
 require 'syllable_rules/sonority_sequencing_principle'
-require 'syllable_rules/english/disallow_ng'
+require 'syllable_rules/english/disallow_ng_onset'
 require 'syllable_rules/english/stressed_syllables_heavy'
 
 module Pronounce
@@ -37,7 +37,7 @@ module Pronounce
 
       is_new_syllable = SyllableRules::English::StressedSyllablesHeavy.evaluate(context)
       return is_new_syllable unless is_new_syllable.nil?
-      is_new_syllable = SyllableRules::English::DisallowNG.evaluate(context)
+      is_new_syllable = SyllableRules::English::DisallowNGOnset.evaluate(context)
       return is_new_syllable unless is_new_syllable.nil?
       SyllableRules::SonoritySequencingPrinciple.evaluate(context)
     end
