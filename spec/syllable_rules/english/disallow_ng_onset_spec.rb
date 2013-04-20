@@ -10,7 +10,7 @@ module Pronounce::SyllableRules::English
       DisallowNGOnset.evaluate context
     end
 
-    let(:phones) { make_phones 'AA', 'B', 'NG', 'EH', 'NG', 'ER', 'M', 'OW' }
+    let(:phones) { make_phones %w{AA B NG EH NG ER M OW} }
 
     context '/ŋ/ in a cluster' do
       let(:index) { 2 }

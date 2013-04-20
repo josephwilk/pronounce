@@ -3,9 +3,9 @@ require 'syllable'
 
 module Pronounce
   describe Syllable do
-    subject { make_syllable 'AE1', 'D', 'Z' }
+    subject { make_syllable %w{AE1 D Z} }
 
-    its(:to_strings) { should == ['AE1', 'D', 'Z'] }
+    its(:to_strings) { should == %w{AE1 D Z} }
     its(:length) { should == 3 }
 
     context 'with a nucleus and coda' do
@@ -20,20 +20,20 @@ module Pronounce
 
     context 'with no coda and a nucleus' do
       context 'which is short' do
-        subject { make_syllable 'B', 'IH1' }
+        subject { make_syllable %w{B IH1} }
 
         its(:light?) { should == true }
       end
 
       context 'which is long' do
-        subject { make_syllable 'B', 'AY1' }
+        subject { make_syllable %w{B AY1} }
 
         its(:light?) { should == false }
       end
     end
 
     context 'with an onset only (pending syllables only)' do
-      subject { make_syllable 'N' }
+      subject { make_syllable %w{N} }
 
       describe '#coda_contains' do
         it 'part of the onset is false' do
@@ -47,7 +47,7 @@ module Pronounce
     end
 
     context 'with an unstressed vowel' do
-      subject { make_syllable 'AH0', 'N' }
+      subject { make_syllable %w{AH0 N} }
       its(:stressed?) { should == false }
     end
 

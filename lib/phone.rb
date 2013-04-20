@@ -47,7 +47,7 @@ module Pronounce
           end
 
           def short?
-            #{['AE', 'AH', 'EH', 'IH', 'UH'].include? symbol}
+            #{%w{AE AH EH IH UH}.include? symbol}
           end
 
           def syllabic?

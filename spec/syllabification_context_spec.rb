@@ -5,8 +5,8 @@ module Pronounce
   describe SyllabificationContext do
     subject { SyllabificationContext.new syllables, phones, index }
 
-    let(:syllables) { [make_syllable('AE0', 'N')] }
-    let(:phones) { make_phones 'AE0', 'N', 'D', 'R', 'AA1', 'M', 'AH0', 'D', 'AH0' }
+    let(:syllables) { [make_syllable(%w{AE0 N})] }
+    let(:phones) { make_phones %w{AE0 N D R AA1 M AH0 D AH0} } # Andromeda
 
     context 'for the first phone' do
       let(:index) { 0 }
@@ -42,7 +42,7 @@ module Pronounce
       let(:index) { 4 }
 
       it 'is everything between the completed syllables and the current phone' do
-        expect(subject.pending_syllable.to_strings).to eq ['D', 'R']
+        expect(subject.pending_syllable.to_strings).to eq %w{D R}
       end
     end
 
