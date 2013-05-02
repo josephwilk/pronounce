@@ -1,7 +1,7 @@
 require 'pronounce'
 
 module Pronounce
-  class Phone
+  module Phone
     include Comparable
 
     class << self
@@ -34,8 +34,10 @@ module Pronounce
       end
 
       def create_phone_type(symbol, articulation)
-        phone = Pronounce.const_set(symbol, Class.new(Phone))
+        phone = Pronounce.const_set(symbol, Class.new)
         phone.class_eval <<-END
+          include Phone
+
           class << self
             def articulation
               '#{articulation}'
