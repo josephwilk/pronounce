@@ -1,37 +1,34 @@
+require 'word'
+
 module Pronounce
   CMUDICT_VERSION = '0.7a'
   DATA_DIR = File.dirname(__FILE__) + '/../data'
 
   class << self
     def how_do_i_pronounce(word)
-      @pronouncation_dictionary ||= build_pronuciation_dictionary
-      @pronouncation_dictionary[word.downcase]
+      @pronouncations ||= build_pronuciation_dictionary
+      word = word.downcase
+      if @pronouncations[word]
+        @pronouncations[word].syllables.map {|syllable| syllable.to_strings }
+      end
     end
-    
+
     def symbols
-      File.read("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.symbols").
-           split("\r\n")
-    end
-    
-    def phones
-      File.read("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.phones").
-           split("\n").
-           reduce({}){|phones, phone| phone, type = *phone.split("\t"); phones.merge({phone => type}) }
+      @symbols ||= File.read("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.symbols").
+                        split("\r\n")
     end
 
     private
-  
+
     def build_pronuciation_dictionary
       dictionary = {}
-    
-      File.open("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}") do |f|
-        f.readlines.each do |line|
-          word, *pron = line.strip.split(' ')
-          next unless word && !word.empty? && !word[/[^A-Z]+/]
-          dictionary[word.downcase] = pron
-        end
+
+      File.readlines("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}").each do |line|
+        word, *raw_phones = line.strip.split
+        next unless word && !word.empty? && !word[/[^A-Z]+/]
+        dictionary[word.downcase] = Word.new raw_phones
       end
-      
+
       dictionary
     end
 
