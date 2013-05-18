@@ -3,14 +3,14 @@ require 'pronounce'
 module Pronounce
   module Phone
     ARTICULATION_SONORITY = {
-      'aspirate' => 0, # this is a guess
-      'stop' => 1,
-      'affricate' => 2,
-      'fricative' => 3,
-      'nasal' => 4,
-      'liquid' => 5,
-      'semivowel' => 6,
-      'vowel' => 7
+      aspirate: 0, # this is a guess
+      stop: 1,
+      affricate: 2,
+      fricative: 3,
+      nasal: 4,
+      liquid: 5,
+      semivowel: 6,
+      vowel: 7
     }
     SHORT_VOWELS = %w{AE AH EH IH UH}
 
@@ -47,7 +47,7 @@ module Pronounce
           include Phone
 
           def self.articulation
-            '#{articulation}'
+            :#{articulation}
           end
         END
         phone
@@ -70,7 +70,7 @@ module Pronounce
     end
 
     def syllabic?
-      articulation == 'vowel'
+      articulation == :vowel
     end
 
     def to_s

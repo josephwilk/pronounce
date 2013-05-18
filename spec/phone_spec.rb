@@ -5,26 +5,26 @@ module Pronounce
   describe Phone do
     describe '.all' do
       it 'lists all English phones' do
-        Phone.all.should == {AA => 'vowel',     L  => 'liquid',
-                             AE => 'vowel',     M  => 'nasal',
-                             AH => 'vowel',     N  => 'nasal',
-                             AO => 'vowel',     NG => 'nasal',
-                             AW => 'vowel',     OW => 'vowel',
-                             AY => 'vowel',     OY => 'vowel',
-                             B  => 'stop',      P  => 'stop',
-                             CH => 'affricate', R  => 'liquid',
-                             D  => 'stop',      S  => 'fricative',
-                             DH => 'fricative', SH => 'fricative',
-                             EH => 'vowel',     T  => 'stop',
-                             ER => 'vowel',     TH => 'fricative',
-                             EY => 'vowel',     UH => 'vowel',
-                             F  => 'fricative', UW => 'vowel',
-                             G  => 'stop',      V  => 'fricative',
-                             HH => 'aspirate',  W  => 'semivowel',
-                             IH => 'vowel',     Y  => 'semivowel',
-                             IY => 'vowel',     Z  => 'fricative',
-                             JH => 'affricate', ZH => 'fricative',
-                             K  => 'stop'}
+        Phone.all.should == {AA => :vowel,     L  => :liquid,
+                             AE => :vowel,     M  => :nasal,
+                             AH => :vowel,     N  => :nasal,
+                             AO => :vowel,     NG => :nasal,
+                             AW => :vowel,     OW => :vowel,
+                             AY => :vowel,     OY => :vowel,
+                             B  => :stop,      P  => :stop,
+                             CH => :affricate, R  => :liquid,
+                             D  => :stop,      S  => :fricative,
+                             DH => :fricative, SH => :fricative,
+                             EH => :vowel,     T  => :stop,
+                             ER => :vowel,     TH => :fricative,
+                             EY => :vowel,     UH => :vowel,
+                             F  => :fricative, UW => :vowel,
+                             G  => :stop,      V  => :fricative,
+                             HH => :aspirate,  W  => :semivowel,
+                             IH => :vowel,     Y  => :semivowel,
+                             IY => :vowel,     Z  => :fricative,
+                             JH => :affricate, ZH => :fricative,
+                             K  => :stop}
       end
     end
 
