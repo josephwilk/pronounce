@@ -22,11 +22,7 @@ module Pronounce
       alias ensure_loaded phones
 
       def parse_phones
-        phones = []
-        read_data.each do |line|
-          phones << create_phone_type(*line.strip.split("\t"))
-        end
-        phones
+        read_data.map {|line| create_phone_type *line.strip.split("\t") }
       end
 
       def read_data
