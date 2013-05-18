@@ -42,15 +42,10 @@ module Pronounce
       end
 
       def create_phone_class(symbol, articulation)
-        phone = Pronounce.const_set(symbol, Class.new)
-        phone.class_eval <<-END
+        Pronounce.const_set symbol, Class.new {
           include Phone
-
-          def self.articulation
-            :#{articulation}
-          end
-        END
-        phone
+          define_singleton_method(:articulation) { articulation.to_sym }
+        }
       end
 
     end
