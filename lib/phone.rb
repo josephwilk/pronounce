@@ -2,6 +2,18 @@ require 'pronounce'
 
 module Pronounce
   module Phone
+    ARTICULATION_SONORITY = {
+      aspirate: 0, # this is a guess
+      stop: 1,
+      affricate: 2,
+      fricative: 3,
+      nasal: 4,
+      liquid: 5,
+      semivowel: 6,
+      vowel: 7
+    }
+    SHORT_VOWELS = %w{AE AH EH IH UH}
+
     include Comparable
 
     class << self
@@ -22,55 +34,18 @@ module Pronounce
       alias ensure_loaded phones
 
       def parse_phones
-        phones = []
-        read_data.each do |line|
-          phones << create_phone_type(*line.strip.split("\t"))
-        end
-        phones
+        read_data.map {|line| create_phone_class *line.strip.split("\t") }
       end
 
       def read_data
         File.readlines("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.phones")
       end
 
-      def create_phone_type(symbol, articulation)
-        phone = Pronounce.const_set(symbol, Class.new)
-        phone.class_eval <<-END
+      def create_phone_class(symbol, articulation)
+        Pronounce.const_set symbol, Class.new {
           include Phone
-
-          class << self
-            def articulation
-              '#{articulation}'
-            end
-
-            def sonority
-              #{sonority_of articulation}
-            end
-          end
-
-          def short?
-            #{%w{AE AH EH IH UH}.include? symbol}
-          end
-
-          def syllabic?
-            #{articulation == 'vowel'}
-          end
-        END
-        phone
-      end
-
-      def sonority_of(articulation)
-        @sonority ||= {
-          'aspirate' => 0, # this is a guess
-          'stop' => 1,
-          'affricate' => 2,
-          'fricative' => 3,
-          'nasal' => 4,
-          'liquid' => 5,
-          'semivowel' => 6,
-          'vowel' => 7
+          define_singleton_method(:articulation) { articulation.to_sym }
         }
-        @sonority[articulation]
       end
 
     end
@@ -85,14 +60,36 @@ module Pronounce
       self.class == phone.class
     end
 
+    def short?
+      SHORT_VOWELS.include? symbol
+    end
+
+    def syllabic?
+      articulation == :vowel
+    end
+
     def to_s
-      "#{self.class.name.split('::').last}#{stress}"
+      "#{symbol}#{stress}"
+    end
+
+    protected
+
+    def sonority
+      ARTICULATION_SONORITY[articulation]
     end
 
     private
 
     def <=>(phone)
-      self.class.sonority <=> phone.class.sonority if Phone === phone
+      self.sonority <=> phone.sonority if Phone === phone
+    end
+
+    def articulation
+      self.class.articulation
+    end
+
+    def symbol
+      self.class.name.split('::').last
     end
 
   end
