@@ -24,6 +24,10 @@ module Pronounce
       Syllable.new(@phones.slice(completed_length...@phone_index))
     end
 
+    def previous_phone_in_coda?
+      pending_syllable.coda_contains? previous_phone
+    end
+
     def word_beginning?
       @phone_index == 0
     end

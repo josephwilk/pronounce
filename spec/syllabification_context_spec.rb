@@ -46,5 +46,24 @@ module Pronounce
       end
     end
 
+    describe '#previous_phone_in_coda?' do
+      context 'when pending syllable contains a vowel before previous phone' do
+        let(:index) { 2 }
+        let(:syllables) { [] }
+
+        it 'is true' do
+          expect(subject.previous_phone_in_coda?).to eq true
+        end
+      end
+
+      context 'when pending syllable does not contain a vowel before previous phone' do
+        let(:index) { 4 }
+
+        it 'is false' do
+          expect(subject.previous_phone_in_coda?).to eq false
+        end
+      end
+    end
+
   end
 end
