@@ -65,5 +65,23 @@ module Pronounce
       end
     end
 
+    describe '#previous_phone_in_onset?' do
+      context 'when pending syllable does not contain a vowel' do
+        let(:index) { 4 }
+
+        it 'is true' do
+          expect(subject.previous_phone_in_onset?).to eq true
+        end
+      end
+
+      context 'when pending syllable contains a vowel' do
+        let(:index) { 6 }
+
+        it 'is false' do
+          expect(subject.previous_phone_in_onset?).to eq false
+        end
+      end
+    end
+
   end
 end

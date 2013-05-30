@@ -28,6 +28,11 @@ module Pronounce
       pending_syllable.coda_contains? previous_phone
     end
 
+    def previous_phone_in_onset?
+      !(previous_phone.syllabic? || previous_phone_in_coda?)
+      # or pending_syllable has no nucleus
+    end
+
     def word_beginning?
       @phone_index == 0
     end
