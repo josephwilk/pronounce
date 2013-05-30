@@ -15,6 +15,20 @@ module Pronounce
         SyllableRules.should_receive(:sonority_sequencing_principle)
         SyllableRules.evaluate context
       end
+
+      it 'calls the Sonority Sequencing Principle last' do
+        final_rule_called = false
+        SyllableRules.should_receive(:sonority_sequencing_principle) do
+          final_rule_called = true
+        end
+        SyllableRules::English.should_receive(:stressed_syllables_heavy) do
+          raise if final_rule_called
+        end
+        SyllableRules::English.should_receive(:disallow_ng_onset) do
+          raise if final_rule_called
+        end
+        SyllableRules.evaluate context
+      end
     end
   end
 end
