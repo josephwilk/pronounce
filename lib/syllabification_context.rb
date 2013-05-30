@@ -33,6 +33,10 @@ module Pronounce
       # or pending_syllable has no nucleus
     end
 
+    def sonority_trough?
+      current_phone <= previous_phone && current_phone < next_phone
+    end
+
     def word_beginning?
       @phone_index == 0
     end
