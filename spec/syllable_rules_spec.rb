@@ -29,6 +29,13 @@ module Pronounce
         end
         SyllableRules.evaluate context
       end
+
+      it 'returns the first boolean value returned by a rule' do
+        SyllableRules::English.should_receive(:stressed_syllables_heavy)
+        SyllableRules::English.should_receive(:disallow_ng_onset).and_return(true)
+        SyllableRules.should_not_receive(:sonority_sequencing_principle)
+        expect(SyllableRules.evaluate context).to eq true
+      end
     end
   end
 end

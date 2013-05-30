@@ -1,9 +1,9 @@
 module Pronounce::SyllableRules
   def self.evaluate(context)
-    is_new_syllable = English.stressed_syllables_heavy context
-    return is_new_syllable unless is_new_syllable.nil?
-    is_new_syllable = English.disallow_ng_onset context
-    return is_new_syllable unless is_new_syllable.nil?
+    [:stressed_syllables_heavy, :disallow_ng_onset].each do |rule|
+      is_new_syllable = English.send rule, context
+      return is_new_syllable unless is_new_syllable.nil?
+    end
     sonority_sequencing_principle context
   end
 
