@@ -3,6 +3,17 @@ require 'syllable_rules'
 
 module Pronounce
   describe SyllableRules do
+    describe 'rule declaration' do
+      let(:name) { 'name' }
+      let(:block) { -> {} }
+
+      it 'takes a name and a block' do
+        block.should_receive(:call)
+        SyllableRules.rule name, &block
+        SyllableRules[name].call
+      end
+    end
+
     describe '.evaluate' do
       let(:syllables) { [] }
       let(:phones) { make_phones %w{K AA1 N T EH0 K S T} } # context
