@@ -33,12 +33,7 @@ module Pronounce
 
     def new_syllable?(context)
       return false if context.word_beginning?
-
-      is_new_syllable = SyllableRules::English.stressed_syllables_heavy context
-      return is_new_syllable unless is_new_syllable.nil?
-      is_new_syllable = SyllableRules::English.disallow_ng_onset context
-      return is_new_syllable unless is_new_syllable.nil?
-      SyllableRules.sonority_sequencing_principle context
+      SyllableRules.evaluate context
     end
 
   end

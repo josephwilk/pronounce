@@ -24,6 +24,19 @@ module Pronounce
       Syllable.new(@phones.slice(completed_length...@phone_index))
     end
 
+    def previous_phone_in_coda?
+      pending_syllable.coda_contains? previous_phone
+    end
+
+    def previous_phone_in_onset?
+      !(previous_phone.syllabic? || previous_phone_in_coda?)
+      # or pending_syllable has no nucleus
+    end
+
+    def sonority_trough?
+      current_phone <= previous_phone && current_phone < next_phone
+    end
+
     def word_beginning?
       @phone_index == 0
     end
