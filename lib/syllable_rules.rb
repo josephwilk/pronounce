@@ -5,11 +5,11 @@ module Pronounce::SyllableRules
         is_new_syllable = English.send rule, context
         return is_new_syllable unless is_new_syllable.nil?
       end
-      send rules[:base], context
+      rules['sonority sequencing principle'].call context
     end
 
     def rule(name, &block)
-      rules[name] = block
+      rules[name] = convert_to_lambda &block
     end
 
     def [](name)
@@ -18,17 +18,26 @@ module Pronounce::SyllableRules
 
     private
 
+    # http://www.ruby-forum.com/topic/4407658
+    # http://stackoverflow.com/questions/2946603/ruby-convert-proc-to-lambda
+    def convert_to_lambda &block
+      converted_block = lambda(&block)
+      return converted_block if converted_block.lambda?
+      obj = Object.new
+      obj.define_singleton_method :_, &block
+      obj.method(:_).to_proc
+    end
+
     def rules
       @rules ||= {
         en: [:stressed_syllables_heavy, :disallow_ng_onset],
-        base: :sonority_sequencing_principle
       }
     end
 
   end
 
   # Breaks syllables at the low point of sonority between vowels.
-  def self.sonority_sequencing_principle(context)
+  rule 'sonority sequencing principle' do |context|
     return true if context.current_phone.syllabic? && !context.previous_phone_in_onset?
     return false if context.word_end?
     context.previous_phone_in_coda? || context.sonority_trough?

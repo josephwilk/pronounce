@@ -5,12 +5,10 @@ module Pronounce
   describe SyllableRules do
     describe 'rule declaration' do
       let(:name) { 'name' }
-      let(:block) { -> {} }
 
       it 'takes a name and a block' do
-        block.should_receive(:call)
-        SyllableRules.rule name, &block
-        SyllableRules[name].call
+        SyllableRules.rule name, &proc {|context| true }
+        SyllableRules[name].call(nil).should == true
       end
     end
 
@@ -23,13 +21,13 @@ module Pronounce
       it 'calls all the rules' do
         SyllableRules::English.should_receive(:stressed_syllables_heavy)
         SyllableRules::English.should_receive(:disallow_ng_onset)
-        SyllableRules.should_receive(:sonority_sequencing_principle)
+        SyllableRules['sonority sequencing principle'].should_receive(:call)
         SyllableRules.evaluate context
       end
 
       it 'calls the Sonority Sequencing Principle last' do
         final_rule_called = false
-        SyllableRules.should_receive(:sonority_sequencing_principle) do
+        SyllableRules['sonority sequencing principle'].should_receive(:call) do
           final_rule_called = true
         end
         SyllableRules::English.should_receive(:stressed_syllables_heavy) do
@@ -44,7 +42,7 @@ module Pronounce
       it 'returns the first boolean value returned by a rule' do
         SyllableRules::English.should_receive(:stressed_syllables_heavy)
         SyllableRules::English.should_receive(:disallow_ng_onset).and_return(true)
-        SyllableRules.should_not_receive(:sonority_sequencing_principle)
+        SyllableRules['sonority sequencing principle'].should_not_receive(:call)
         expect(SyllableRules.evaluate context).to eq true
       end
     end
