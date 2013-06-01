@@ -18,13 +18,6 @@ module Pronounce
       let(:index) { 1 }
       let(:context) { SyllabificationContext.new syllables, phones, index }
 
-      it 'calls all the rules' do
-        SyllableRules::English.should_receive(:stressed_syllables_heavy)
-        SyllableRules::English.should_receive(:disallow_ng_onset)
-        SyllableRules['sonority sequencing principle'].should_receive(:call)
-        SyllableRules.evaluate context
-      end
-
       it 'calls the Sonority Sequencing Principle last' do
         final_rule_called = false
         SyllableRules['sonority sequencing principle'].should_receive(:call) do

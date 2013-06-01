@@ -1,11 +1,9 @@
 module Pronounce::SyllableRules
   class << self
     def evaluate(context)
-      rules[:en].each do |rule|
-        is_new_syllable = English.send rule, context
-        return is_new_syllable unless is_new_syllable.nil?
-      end
-      rules['sonority sequencing principle'].call context
+      base_rule = -> { rules['sonority sequencing principle'].call context }
+      rules[:en].lazy.map {|rule| English.send rule, context }.
+        find(base_rule) {|result| !result.nil? }
     end
 
     def rule(name, &block)
