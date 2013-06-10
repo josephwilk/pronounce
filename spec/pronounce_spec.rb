@@ -14,6 +14,10 @@ describe Pronounce do
     it 'returns nil for unknown words' do
       Pronounce.how_do_i_pronounce('beeblebrox').should == nil
     end
+
+    it 'is case insensitive' do
+      Pronounce.how_do_i_pronounce('MoNk').should == [%w{M AH1 NG K}]
+    end
   end
 
   describe '.symbols' do

@@ -39,7 +39,7 @@ module Pronounce
     end
 
     describe '#<=>' do
-      it 'is comparable based on sonority' do
+      it 'is based on sonority' do
         Phone.create('AH').should == Phone.create('UW')
         Phone.create('P').should be <  Phone.create('CH')
         Phone.create('F').should be <= Phone.create('Z')
@@ -59,7 +59,7 @@ module Pronounce
         should eql Phone.create('AH')
       end
 
-      it 'is false for a different Phones' do
+      it 'is false for an instance of a different Phone' do
         should_not eql Phone.create('UW')
       end
 

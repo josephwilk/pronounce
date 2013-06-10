@@ -7,8 +7,8 @@ module Pronounce
   class << self
     def how_do_i_pronounce(word)
       @pronouncations ||= build_pronuciation_dictionary
-      word = word.downcase
-      if @pronouncations[word]
+      word.downcase!
+      if @pronouncations.has_key? word
         @pronouncations[word].syllables.map {|syllable| syllable.to_strings }
       end
     end
@@ -21,15 +21,11 @@ module Pronounce
     private
 
     def build_pronuciation_dictionary
-      dictionary = {}
-
-      File.readlines("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}").each do |line|
+      File.readlines("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}").each_with_object({}) do |line, dictionary|
         word, *raw_phones = line.strip.split
         next unless word && !word.empty? && !word[/[^A-Z]+/]
         dictionary[word.downcase] = Word.new raw_phones
       end
-
-      dictionary
     end
 
   end
