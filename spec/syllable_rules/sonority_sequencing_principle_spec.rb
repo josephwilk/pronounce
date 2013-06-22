@@ -3,10 +3,10 @@ require 'syllable_rules'
 
 module Pronounce
   describe SyllableRules do
-    describe '.sonority_sequencing_principle' do
+    describe 'Sonority Sequencing Principle' do
       subject do
         context = Pronounce::SyllabificationContext.new syllables, phones, index
-        SyllableRules['sonority sequencing principle'].call context
+        SyllableRules['Sonority Sequencing Principle'].call context
       end
 
       let(:syllables) { [] }

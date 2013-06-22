@@ -2,7 +2,6 @@ require 'phone'
 require 'syllabification_context'
 require 'syllable'
 require 'syllable_rules'
-require 'syllable_rules/english'
 
 module Pronounce
   class Word
