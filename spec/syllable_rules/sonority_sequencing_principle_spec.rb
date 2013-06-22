@@ -6,7 +6,7 @@ module Pronounce
     describe 'Sonority Sequencing Principle' do
       subject do
         context = Pronounce::SyllabificationContext.new syllables, phones, index
-        SyllableRules['Sonority Sequencing Principle'].call context
+        SyllableRules['Sonority Sequencing Principle'].evaluate context
       end
 
       let(:syllables) { [] }

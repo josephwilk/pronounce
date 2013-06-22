@@ -8,7 +8,7 @@ module Pronounce
     describe '/ng/ cannot start a syllable' do
       subject do
         context = Pronounce::SyllabificationContext.new [], phones, index
-        SyllableRules[:en]['/ng/ cannot start a syllable'].call context
+        SyllableRules[:en]['/ng/ cannot start a syllable'].evaluate context
       end
 
       let(:phones) { make_phones %w{AA B NG EH NG ER M OW} }

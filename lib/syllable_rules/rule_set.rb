@@ -12,8 +12,8 @@ module Pronounce::SyllableRules
       @rules[name]
     end
 
-    def call(context)
-      @rules.map {|_, rule| rule.call context }.find {|result| !result.nil? }
+    def evaluate(context)
+      @rules.map {|_, rule| rule.evaluate context }.find {|result| !result.nil? }
     end
 
   end
