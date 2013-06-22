@@ -13,7 +13,7 @@ module Pronounce::SyllableRules
     end
 
     def call(context)
-      @rules.lazy.map {|_, rule| rule.call context }.find {|result| !result.nil? }
+      @rules.map {|_, rule| rule.call context }.find {|result| !result.nil? }
     end
 
   end

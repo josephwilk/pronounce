@@ -2,7 +2,7 @@ module Pronounce::SyllableRules
   class << self
     def evaluate(context)
       base_rule = -> { rules['sonority sequencing principle'].call context }
-      rules[:en].lazy.map {|rule| English.send rule, context }.
+      rules[:en].map {|rule| English.send rule, context }.
         find(base_rule) {|result| !result.nil? }
     end
 
