@@ -1,10 +1,12 @@
+require 'data_reader'
 require 'word'
 
 module Pronounce
-  CMUDICT_VERSION = '0.7a'
-  DATA_DIR = File.dirname(__FILE__) + '/../data'
-
   class << self
+    def data_reader
+      @data_reader ||= DataReader.new
+    end
+
     def how_do_i_pronounce(word)
       @pronouncations ||= build_pronuciation_dictionary
       word.downcase!
@@ -14,14 +16,13 @@ module Pronounce
     end
 
     def symbols
-      @symbols ||= File.read("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.symbols").
-                        split("\r\n")
+      @symbols ||= data_reader.symbols.split("\r\n")
     end
 
     private
 
     def build_pronuciation_dictionary
-      File.readlines("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}").each_with_object({}) do |line, dictionary|
+      data_reader.pronunciations.each_with_object({}) do |line, dictionary|
         word, *raw_phones = line.strip.split
         next unless word && !word.empty? && !word[/[^A-Z]+/]
         dictionary[word.downcase] = Word.new raw_phones

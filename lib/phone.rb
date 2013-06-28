@@ -34,11 +34,9 @@ module Pronounce
       alias ensure_loaded phones
 
       def parse_phones
-        read_data.map {|line| create_phone_class *line.strip.split("\t") }
-      end
-
-      def read_data
-        File.readlines("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.phones")
+        Pronounce.data_reader.phones.map do |line|
+          create_phone_class *line.strip.split("\t")
+        end
       end
 
       def create_phone_class(symbol, articulation)
