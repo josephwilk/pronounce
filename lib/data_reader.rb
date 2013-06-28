@@ -12,7 +12,7 @@ module Pronounce
     end
 
     def symbols
-      File.read "#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.symbols"
+      File.readlines "#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.symbols"
     end
 
   end

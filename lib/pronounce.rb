@@ -16,7 +16,7 @@ module Pronounce
     end
 
     def symbols
-      @symbols ||= data_reader.symbols.split("\r\n")
+      @symbols ||= data_reader.symbols.map &:strip
     end
 
     private
