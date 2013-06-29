@@ -3,6 +3,12 @@ require 'pronounce'
 
 describe Pronounce do
   describe '.how_do_i_pronounce' do
+    before do
+      Pronounce.data_reader.stub(:pronunciations) {
+        ["MONK  M AH1 NG K", "MONKEYS  M AH1 NG K IY0 Z"]
+      }
+    end
+
     it 'returns a list of phones' do
       Pronounce.how_do_i_pronounce('monk').should == [%w{M AH1 NG K}]
     end
