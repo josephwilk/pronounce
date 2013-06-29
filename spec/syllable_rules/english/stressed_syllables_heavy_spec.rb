@@ -2,11 +2,11 @@ require 'spec_helper'
 require 'syllable_rules/english'
 
 module Pronounce
-  describe SyllableRules::English do
-    describe '.stressed_syllables_heavy' do
+  describe SyllableRules do
+    describe 'stressed syllables cannot be light' do
       subject do
         context = Pronounce::SyllabificationContext.new syllables, phones, index
-        SyllableRules::English.stressed_syllables_heavy context
+        SyllableRules[:en]['stressed syllables cannot be light'].evaluate context
       end
 
       let(:syllables) { [] }
