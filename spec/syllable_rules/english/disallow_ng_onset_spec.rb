@@ -4,11 +4,11 @@ require 'spec_helper'
 require 'syllable_rules/english'
 
 module Pronounce
-  describe SyllableRules::English do
-    describe '.disallow_ng_onset' do
+  describe SyllableRules do
+    describe '/ng/ cannot start a syllable' do
       subject do
         context = Pronounce::SyllabificationContext.new [], phones, index
-        SyllableRules::English.disallow_ng_onset context
+        SyllableRules[:en]['/ng/ cannot start a syllable'].evaluate context
       end
 
       let(:phones) { make_phones %w{AA B NG EH NG ER M OW} }
