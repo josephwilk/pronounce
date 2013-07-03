@@ -35,7 +35,8 @@ module Pronounce
     end
 
     def nucleus
-      phones.chunk {|item| item.syllabic? }.
+      # https://github.com/jruby/jruby/issues/836
+      phones.chunk {|item| item.syllabic? }.to_a.
         select {|syllabic, _| syllabic }.
         collect {|_, section| section }.fetch(0, [])
     end
