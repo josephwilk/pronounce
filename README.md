@@ -37,3 +37,8 @@ module Pronounce::SyllableRules
 
 end
 ```
+
+## Ruby Support
+
+MRI 1.9+
+JRuby 1.7.4
