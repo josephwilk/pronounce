@@ -65,15 +65,15 @@ module Pronounce
 
     protected
 
+    def <=>(phone)
+      self.articulation <=> phone.articulation if Phone === phone
+    end
+
     def articulation
       self.class.articulation
     end
 
     private
-
-    def <=>(phone)
-      self.articulation <=> phone.articulation if Phone === phone
-    end
 
     def symbol
       self.class.name.split('::').last
