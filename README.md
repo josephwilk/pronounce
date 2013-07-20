@@ -43,5 +43,5 @@ end
 
 ## Ruby Support
 
-MRI 1.9+
-JRuby 1.7.4
+* MRI 1.9+
+* JRuby 1.7.4 (1.9 mode only)
