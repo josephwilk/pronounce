@@ -1,17 +1,8 @@
 require 'pronounce'
+require 'articulation'
 
 module Pronounce
   module Phone
-    ARTICULATION_SONORITY = {
-      aspirate: 0, # this is a guess
-      stop: 1,
-      affricate: 2,
-      fricative: 3,
-      nasal: 4,
-      liquid: 5,
-      semivowel: 6,
-      vowel: 7
-    }
     SHORT_VOWELS = %w{AE AH EH IH UH}
 
     include Comparable
@@ -42,7 +33,9 @@ module Pronounce
       def create_phone_class(symbol, articulation)
         Pronounce.const_set symbol, Class.new {
           include Phone
-          define_singleton_method(:articulation) { articulation.to_sym }
+          define_singleton_method(:articulation) do
+            Articulation[articulation.to_sym]
+          end
         }
       end
 
@@ -63,7 +56,7 @@ module Pronounce
     end
 
     def syllabic?
-      articulation == :vowel
+      articulation.syllabic?
     end
 
     def to_s
@@ -72,18 +65,14 @@ module Pronounce
 
     protected
 
-    def sonority
-      ARTICULATION_SONORITY[articulation]
+    def articulation
+      self.class.articulation
     end
 
     private
 
     def <=>(phone)
-      self.sonority <=> phone.sonority if Phone === phone
-    end
-
-    def articulation
-      self.class.articulation
+      self.articulation <=> phone.articulation if Phone === phone
     end
 
     def symbol

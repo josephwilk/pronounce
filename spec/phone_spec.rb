@@ -5,26 +5,28 @@ module Pronounce
   describe Phone do
     describe '.all' do
       it 'lists all English phones' do
-        Phone.all.should == {AA => :vowel,     L  => :liquid,
-                             AE => :vowel,     M  => :nasal,
-                             AH => :vowel,     N  => :nasal,
-                             AO => :vowel,     NG => :nasal,
-                             AW => :vowel,     OW => :vowel,
-                             AY => :vowel,     OY => :vowel,
-                             B  => :stop,      P  => :stop,
-                             CH => :affricate, R  => :liquid,
-                             D  => :stop,      S  => :fricative,
-                             DH => :fricative, SH => :fricative,
-                             EH => :vowel,     T  => :stop,
-                             ER => :vowel,     TH => :fricative,
-                             EY => :vowel,     UH => :vowel,
-                             F  => :fricative, UW => :vowel,
-                             G  => :stop,      V  => :fricative,
-                             HH => :aspirate,  W  => :semivowel,
-                             IH => :vowel,     Y  => :semivowel,
-                             IY => :vowel,     Z  => :fricative,
-                             JH => :affricate, ZH => :fricative,
-                             K  => :stop}
+        Phone.all.should == {
+          AA => Articulation[:vowel],     L  => Articulation[:liquid],
+          AE => Articulation[:vowel],     M  => Articulation[:nasal],
+          AH => Articulation[:vowel],     N  => Articulation[:nasal],
+          AO => Articulation[:vowel],     NG => Articulation[:nasal],
+          AW => Articulation[:vowel],     OW => Articulation[:vowel],
+          AY => Articulation[:vowel],     OY => Articulation[:vowel],
+          B  => Articulation[:stop],      P  => Articulation[:stop],
+          CH => Articulation[:affricate], R  => Articulation[:liquid],
+          D  => Articulation[:stop],      S  => Articulation[:fricative],
+          DH => Articulation[:fricative], SH => Articulation[:fricative],
+          EH => Articulation[:vowel],     T  => Articulation[:stop],
+          ER => Articulation[:vowel],     TH => Articulation[:fricative],
+          EY => Articulation[:vowel],     UH => Articulation[:vowel],
+          F  => Articulation[:fricative], UW => Articulation[:vowel],
+          G  => Articulation[:stop],      V  => Articulation[:fricative],
+          HH => Articulation[:aspirate],  W  => Articulation[:semivowel],
+          IH => Articulation[:vowel],     Y  => Articulation[:semivowel],
+          IY => Articulation[:vowel],     Z  => Articulation[:fricative],
+          JH => Articulation[:affricate], ZH => Articulation[:fricative],
+          K  => Articulation[:stop]
+        }
       end
     end
 
