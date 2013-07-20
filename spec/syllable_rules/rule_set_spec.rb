@@ -41,15 +41,18 @@ module Pronounce::SyllableRules
       it 'calls base rules last' do
         final_rule_called = false
         first_added_rule = Rule.new proc {|context| }
-        first_added_rule.should_receive(:evaluate) { raise if final_rule_called }
+        first_added_rule.stub(:evaluate) { raise if final_rule_called }
         last_added_rule = Rule.new proc {|context| }
-        last_added_rule.should_receive(:evaluate) { raise if final_rule_called }
+        last_added_rule.stub(:evaluate) { raise if final_rule_called }
         final_rule = Rule.new proc {|context| }
-        final_rule.should_receive(:evaluate) { final_rule_called = true }
+        final_rule.stub(:evaluate) { final_rule_called = true }
         rule_set.add [:set_1, 'first added'], first_added_rule
         rule_set.add [:base, 'final rule'], final_rule
         rule_set.add [:set_2, 'last added'], last_added_rule
         rule_set.evaluate context
+        expect(first_added_rule).to have_received :evaluate
+        expect(last_added_rule).to have_received :evaluate
+        expect(final_rule).to have_received :evaluate
       end
     end
 
