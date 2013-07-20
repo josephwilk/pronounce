@@ -17,10 +17,21 @@ module Pronounce
       end
     end
 
-    describe 'inspect' do
+    describe '#inspect' do
       it 'returns the name only' do
         expect(Articulation[:vowel].inspect).to eq 'vowel'
       end
     end
+
+    describe '#syllabic?' do
+      it 'is true for vowels' do
+        expect(Articulation[:vowel].syllabic?).to be_true
+      end
+
+      it 'is false for consonants' do
+        expect(Articulation[:affricate].syllabic?).to be_false
+      end
+    end
+
   end
 end

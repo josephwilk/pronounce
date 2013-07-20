@@ -35,6 +35,10 @@ module Pronounce
       name.to_s
     end
 
+    def syllabic?
+      sonority == 7
+    end
+
     protected
 
     attr_reader :sonority

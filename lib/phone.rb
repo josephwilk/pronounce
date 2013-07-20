@@ -56,7 +56,7 @@ module Pronounce
     end
 
     def syllabic?
-      articulation == Articulation[:vowel]
+      articulation.syllabic?
     end
 
     def to_s
