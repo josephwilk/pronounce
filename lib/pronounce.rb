@@ -3,10 +3,6 @@ require 'word'
 
 module Pronounce
   class << self
-    def data_reader
-      @data_reader ||= DataReader.new
-    end
-
     def how_do_i_pronounce(word)
       @pronouncations ||= build_pronuciation_dictionary
       word.downcase!
@@ -16,13 +12,13 @@ module Pronounce
     end
 
     def symbols
-      @symbols ||= data_reader.symbols.map &:strip
+      @symbols ||= DataReader.symbols.map &:strip
     end
 
     private
 
     def build_pronuciation_dictionary
-      data_reader.pronunciations.each_with_object({}) do |line, dictionary|
+      DataReader.pronunciations.each_with_object({}) do |line, dictionary|
         word, *raw_phones = line.strip.split
         next unless word && !word.empty? && !word[/[^A-Z]+/]
         dictionary[word.downcase] = Word.new raw_phones

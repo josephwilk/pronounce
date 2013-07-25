@@ -1,9 +1,10 @@
 require 'pronounce'
 require 'articulation'
+require 'data_reader'
 
 module Pronounce
   module Phone
-    SHORT_VOWELS = %w{AE AH EH IH UH}
+    SHORT_VOWELS = %w[AE AH EH IH UH]
 
     include Comparable
 
@@ -25,7 +26,7 @@ module Pronounce
       alias ensure_loaded phones
 
       def parse_phones
-        Pronounce.data_reader.phones.map do |line|
+        DataReader.phones.map do |line|
           create_phone_class *line.strip.split("\t")
         end
       end
