@@ -1,15 +1,18 @@
 require 'pronounce'
 require 'articulation'
+require 'data_reader'
 
 module Pronounce
   module Phone
-    SHORT_VOWELS = %w{AE AH EH IH UH}
+    SHORT_VOWELS = %w[AE AH EH IH UH]
 
     include Comparable
 
     class << self
       def all
-        phones.inject({}) {|all, phone| all.merge phone => phone.articulation }
+        phones.each_with_object({}) {|phone, all|
+          all[phone] = phone.articulation
+        }
       end
 
       def create(symbol)
@@ -25,9 +28,9 @@ module Pronounce
       alias ensure_loaded phones
 
       def parse_phones
-        Pronounce.data_reader.phones.map do |line|
+        DataReader.phones.map {|line|
           create_phone_class *line.strip.split("\t")
-        end
+        }
       end
 
       def create_phone_class(symbol, articulation)
