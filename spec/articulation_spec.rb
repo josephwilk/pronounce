@@ -3,6 +3,10 @@ require 'articulation'
 
 module Pronounce
   describe Articulation do
+    it 'does not allow creation of new instances' do
+      expect { Articulation.new }.to raise_error NoMethodError
+    end
+
     describe '#<=>' do
       it 'is based on sonority' do
         expect(Articulation[:stop]).to be < Articulation[:fricative]
@@ -25,11 +29,11 @@ module Pronounce
 
     describe '#syllabic?' do
       it 'is true for vowels' do
-        expect(Articulation[:vowel].syllabic?).to be_true
+        expect(Articulation[:vowel].syllabic?).to be true
       end
 
       it 'is false for consonants' do
-        expect(Articulation[:affricate].syllabic?).to be_false
+        expect(Articulation[:affricate].syllabic?).to be false
       end
     end
 
