@@ -1,86 +1,45 @@
-require 'pronounce'
-require 'articulation'
-require 'data_reader'
+require 'phone_type'
 
 module Pronounce
-  module Phone
-    SHORT_VOWELS = %w[AE AH EH IH UH]
-
+  class Phone
     include Comparable
-
-    class << self
-      def all
-        phones.each_with_object({}) {|phone, all|
-          all[phone] = phone.articulation
-        }
-      end
-
-      def create(symbol)
-        ensure_loaded
-        Pronounce.const_get(symbol[0..1]).new symbol[2]
-      end
-
-      private
-
-      def phones
-        @phones ||= parse_phones
-      end
-      alias ensure_loaded phones
-
-      def parse_phones
-        DataReader.phones.map {|line|
-          create_phone_class *line.strip.split("\t")
-        }
-      end
-
-      def create_phone_class(symbol, articulation)
-        Pronounce.const_set symbol, Class.new {
-          include Phone
-          define_singleton_method(:articulation) do
-            Articulation[articulation.to_sym]
-          end
-        }
-      end
-
-    end
 
     attr_reader :stress
 
-    def initialize(stress)
-      @stress = stress.to_i if stress
+    def initialize(symbol)
+      @type = PhoneType[symbol[0..1]]
+      raise ArgumentError.new('invalid symbol') unless @type
+      @stress = symbol[2].to_i if symbol.length == 3
     end
 
-    def eql?(phone)
-      self.class == phone.class
+    def <=>(other)
+      type <=> other.type if Phone === other
+    end
+
+    def eql?(other)
+      return false unless Phone === other
+      type.eql? other.type
+    end
+
+    def hash
+      "#{self.class}:#{type.name}".hash
     end
 
     def short?
-      SHORT_VOWELS.include? symbol
+      type.short?
     end
 
     def syllabic?
-      articulation.syllabic?
+      type.syllabic?
     end
 
     def to_s
-      "#{symbol}#{stress}"
+      "#{type.name}#{stress}"
     end
 
     protected
 
-    def <=>(phone)
-      self.articulation <=> phone.articulation if Phone === phone
-    end
-
-    def articulation
-      self.class.articulation
-    end
-
-    private
-
-    def symbol
-      self.class.name.split('::').last
-    end
+    attr_reader :type
 
   end
 end

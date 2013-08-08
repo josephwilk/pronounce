@@ -8,12 +8,6 @@ module Pronounce
     end
 
     class << self
-      def [](name)
-        NAMED_ARTICULATIONS[name]
-      end
-
-      private
-
       NAMED_ARTICULATIONS = {
         aspirate:  Articulation.new(:aspirate, 0), # Dogil 1992, p393
         stop:      Articulation.new(:stop, 1),
@@ -24,6 +18,12 @@ module Pronounce
         semivowel: Articulation.new(:semivowel, 6),
         vowel:     Articulation.new(:vowel, 7)
       }
+
+      def [](name)
+        NAMED_ARTICULATIONS[name]
+      end
+
+      protected :new
 
     end
 
