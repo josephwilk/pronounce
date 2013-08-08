@@ -8,7 +8,7 @@ require 'syllable_rules/english'
 module Pronounce
   class Word
     def initialize(raw_phones)
-      @phones = raw_phones.map {|symbol| Phone.create symbol }
+      @phones = raw_phones.map {|symbol| Phone.new symbol }
     end
 
     def syllables
