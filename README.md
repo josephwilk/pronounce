@@ -13,9 +13,6 @@ require 'pronounce'
 Pronounce.how_do_i_pronounce('monkeys')
 => [["M", "AH1", "NG"], ["K", "IY0", "Z"]]
 
-Pronounce::PhoneType.all
-=> {AA=>vowel, AE=>vowel, AH=>vowel, AO=>vowel, AW=>vowel, AY=>vowel, B=>stop, CH=>affricate, D=>stop, DH=>fricative, EH=>vowel, ER=>vowel, EY=>vowel, F=>fricative, G=>stop, HH=>aspirate, IH=>vowel, IY=>vowel, JH=>affricate, K=>stop, L=>liquid, M=>nasal, N=>nasal, NG=>nasal, OW=>vowel, OY=>vowel, P=>stop, R=>liquid, S=>fricative, SH=>fricative, T=>stop, TH=>fricative, UH=>vowel, UW=>vowel, V=>fricative, W=>semivowel, Y=>semivowel, Z=>fricative, ZH=>fricative}
-
 ```
 
 ## Data and Procedure
