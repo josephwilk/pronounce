@@ -6,7 +6,6 @@ module Pronounce
 
     its(:phone_types) { should include "AA\tvowel\n" }
     its(:pronunciations) { should include ";;; # CMUdict  --  Major Version: 0.07a [102007]\n" }
-    its(:symbols) { should include "AA\r\n" }
 
   end
 end
