@@ -12,12 +12,6 @@ module Pronounce
         types[name]
       end
 
-      def all
-        types.values.each_with_object({}) {|type, all|
-          all[type] = type.articulation
-        }
-      end
-
       protected :new
 
       private
@@ -35,7 +29,7 @@ module Pronounce
 
     end
 
-    attr_reader :articulation, :name
+    attr_reader :name
 
     def initialize(name, articulation)
       @name = name
@@ -46,10 +40,6 @@ module Pronounce
       self.articulation <=> type.articulation if PhoneType === type
     end
 
-    def inspect
-      name
-    end
-
     def short?
       SHORT_VOWELS.include? name
     end
@@ -57,6 +47,10 @@ module Pronounce
     def syllabic?
       articulation.syllabic?
     end
+
+    protected
+
+    attr_reader :articulation
 
   end
 end

@@ -21,12 +21,6 @@ module Pronounce
       end
     end
 
-    describe '#inspect' do
-      it 'returns the name only' do
-        expect(Articulation[:vowel].inspect).to eq 'vowel'
-      end
-    end
-
     describe '#syllabic?' do
       it 'is true for vowels' do
         expect(Articulation[:vowel].syllabic?).to be true

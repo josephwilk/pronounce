@@ -13,12 +13,6 @@ require 'pronounce'
 Pronounce.how_do_i_pronounce('monkeys')
 => [["M", "AH1", "NG"], ["K", "IY0", "Z"]]
 
-Pronounce.symbols
-=> ["AA", "AA0", "AA1", "AA2", "AE", "AE0", "AE1", "AE2", "AH", "AH0", "AH1", "AH2", "AO", "AO0", "AO1", "AO2", "AW", "AW0", "AW1", "AW2", "AY", "AY0", "AY1", "AY2", "B", "CH", "D", "DH", "EH", "EH0", "EH1", "EH2", "ER", "ER0", "ER1", "ER2", "EY", "EY0", "EY1", "EY2", "F", "G", "HH", "IH", "IH0", "IH1", "IH2", "IY", "IY0", "IY1", "IY2", "JH", "K", "L", "M", "N", "NG", "OW", "OW0", "OW1", "OW2", "OY", "OY0", "OY1", "OY2", "P", "R", "S", "SH", "T", "TH", "UH", "UH0", "UH1", "UH2", "UW", "UW0", "UW1", "UW2", "V", "W", "Y", "Z", "ZH"]
-
-Pronounce::PhoneType.all
-=> {AA=>vowel, AE=>vowel, AH=>vowel, AO=>vowel, AW=>vowel, AY=>vowel, B=>stop, CH=>affricate, D=>stop, DH=>fricative, EH=>vowel, ER=>vowel, EY=>vowel, F=>fricative, G=>stop, HH=>aspirate, IH=>vowel, IY=>vowel, JH=>affricate, K=>stop, L=>liquid, M=>nasal, N=>nasal, NG=>nasal, OW=>vowel, OY=>vowel, P=>stop, R=>liquid, S=>fricative, SH=>fricative, T=>stop, TH=>fricative, UH=>vowel, UW=>vowel, V=>fricative, W=>semivowel, Y=>semivowel, Z=>fricative, ZH=>fricative}
-
 ```
 
 ## Data and Procedure
@@ -27,11 +21,28 @@ Pronunciations are based on the CMUdict database: http://svn.code.sf.net/p/cmusp
 
 The phone list is the <a href="http://en.wikipedia.org/wiki/Arpabet">ARPAbet</a> subset used by CMUdict.
 
+#### Vowels
+
+__Monophthongs:__ `AA, AE, AH, AO, EH, IH, IY, UH, UW`  
+__Diphthongs:__ `AW, AY, EY, OW, OY`  
+__R-colored:__ `ER`  
+
+#### Consonants
+
+__Aspirates:__ `HH`  
+__Stops:__ `B, D, G, K, P, T`  
+__Affricates:__ `CH, JH`  
+__Fricatives:__ `DH, F, SH, S, TH, V, Z, ZH`  
+__Nasals:__ `M, N, NG`  
+__Liquids:__ `L, R`  
+__Semivowels:__ `W, Y`  
+
 CMUdict contains pronunciations of <a href="http://en.wikipedia.org/wiki/North_American_English">North American English</a> and ARPAbet represents the phonemes of <a href="http://en.wikipedia.org/wiki/General_American">General American English</a> so those are currently the only dialect and accent supported.
 
 Syllables are split by scanning the pronunciation from the start to finish and applying rules of <a href="http://en.wikipedia.org/wiki/English_phonology">English phonology</a> to determine if the current phone is the start of a new syllable. Rules are defined by the rule DSL. A rule can return a boolean value or `nil` indicating that the rule doesn't apply in the context and other rules should be evaluated.
 
 #### Declaration
+
 ```ruby
 module Pronounce::SyllableRules
   rule :optional_language, 'name of rule' do |context|

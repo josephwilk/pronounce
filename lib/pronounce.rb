@@ -10,10 +10,6 @@ module Pronounce
       end
     end
 
-    def symbols
-      @symbols ||= DataReader.symbols.map &:strip
-    end
-
     private
 
     def pronunciations
