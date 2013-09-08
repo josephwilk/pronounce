@@ -2,21 +2,20 @@ module Pronounce
   class Articulation
     include Comparable
 
-    def initialize(name, sonority)
-      @name = name
+    def initialize(sonority)
       @sonority = sonority
     end
 
     class << self
       NAMED_ARTICULATIONS = {
-        aspirate:  Articulation.new(:aspirate, 0), # Dogil 1992, p393
-        stop:      Articulation.new(:stop, 1),
-        affricate: Articulation.new(:affricate, 2),
-        fricative: Articulation.new(:fricative, 3),
-        nasal:     Articulation.new(:nasal, 4),
-        liquid:    Articulation.new(:liquid, 5),
-        semivowel: Articulation.new(:semivowel, 6),
-        vowel:     Articulation.new(:vowel, 7)
+        aspirate:  Articulation.new(0), # Dogil 1992, p393
+        stop:      Articulation.new(1),
+        affricate: Articulation.new(2),
+        fricative: Articulation.new(3),
+        nasal:     Articulation.new(4),
+        liquid:    Articulation.new(5),
+        semivowel: Articulation.new(6),
+        vowel:     Articulation.new(7)
       }
 
       def [](name)
@@ -31,10 +30,6 @@ module Pronounce
       sonority <=> other.sonority if Articulation === other
     end
 
-    def inspect
-      name.to_s
-    end
-
     def syllabic?
       sonority == 7
     end
@@ -42,10 +37,6 @@ module Pronounce
     protected
 
     attr_reader :sonority
-
-    private
-
-    attr_reader :name
 
   end
 end

@@ -11,10 +11,6 @@ module Pronounce
       def pronunciations
         File.readlines "#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}"
       end
-
-      def symbols
-        File.readlines "#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.symbols"
-      end
     end
 
   end
