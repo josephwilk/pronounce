@@ -23,6 +23,20 @@ module Pronounce
       end
     end
 
+    describe '#approximant?' do
+      it 'is true for a liquid' do
+        expect(Phone.new('R').approximant?).to be true
+      end
+
+      it 'is true for a glide' do
+        expect(Phone.new('W').approximant?).to be true
+      end
+
+      it 'is false for non-approximants' do
+        expect(Phone.new('P').approximant?).to be false
+      end
+    end
+
     describe '#articulation?' do
       let(:phone) { Phone.new 'JH' }
 

@@ -20,6 +20,10 @@ module Pronounce
       type <=> other.type if Phone === other
     end
 
+    def approximant?
+      type.articulation? :semivowel, :liquid
+    end
+
     def eql?(other)
       return false unless Phone === other
       type.eql? other.type

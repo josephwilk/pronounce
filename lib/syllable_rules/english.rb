@@ -15,7 +15,7 @@ module Pronounce::SyllableRules
       !context.previous_phone_in_coda? &&
       !context.current_phone.voiced? &&
       context.current_phone.articulation?(:stop, :fricative) &&
-      context.next_phone.articulation?(:semivowel, :liquid)
+      context.next_phone.approximant?
   end
 
 end
