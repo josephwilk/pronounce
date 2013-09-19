@@ -1,5 +1,11 @@
+require 'forwardable'
+
 module Pronounce::SyllableRules
   class RuleSet
+    extend Forwardable
+
+    def_delegators :rules, :[]
+
     def initialize
       @rules = {}
     end
@@ -12,10 +18,6 @@ module Pronounce::SyllableRules
       else
         rules[name] = rule
       end
-    end
-
-    def [](name)
-      rules[name]
     end
 
     def evaluate(context)

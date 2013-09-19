@@ -1,14 +1,18 @@
+require 'forwardable'
+
 module Pronounce::SyllableRules
   class Rule
+    extend Forwardable
+
+    def_delegator :definition, :call, :evaluate
+
     def initialize(definition)
       @definition = convert_to_lambda definition
     end
 
-    def evaluate context
-      @definition.call context
-    end
-
     private
+
+    attr_reader :definition
 
     def convert_to_lambda(definition)
       if (converted_proc = lambda &definition).lambda?

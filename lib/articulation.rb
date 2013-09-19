@@ -1,3 +1,5 @@
+require 'forwardable'
+
 module Pronounce
   class Articulation
     include Comparable
@@ -7,7 +9,7 @@ module Pronounce
     end
 
     class << self
-      NAMED_ARTICULATIONS = {
+      ARTICULATIONS = {
         aspirate:  Articulation.new(0), # Dogil 1992, p393
         stop:      Articulation.new(1),
         affricate: Articulation.new(2),
@@ -18,9 +20,9 @@ module Pronounce
         vowel:     Articulation.new(7)
       }
 
-      def [](name)
-        NAMED_ARTICULATIONS[name]
-      end
+      extend Forwardable
+
+      def_delegators :ARTICULATIONS, :[]
 
       private :new
 
