@@ -23,6 +23,26 @@ module Pronounce
       end
     end
 
+    describe '#articulation?' do
+      let(:phone) { Phone.new 'JH' }
+
+      it 'is true for the correct articulation' do
+        expect(phone.articulation? :affricate).to be true
+      end
+
+      it 'is true for a list containing the correct articulation' do
+        expect(phone.articulation? :affricate, :vowel).to be true
+      end
+
+      it 'is false for an incorrect articulation' do
+        expect(phone.articulation? :stop).to be false
+      end
+
+      it 'is false for a list not containing the correct articulation' do
+        expect(phone.articulation? :stop, :vowel).to be false
+      end
+    end
+
     describe '#eql?' do
       let(:phone) { Phone.new 'AH' }
 

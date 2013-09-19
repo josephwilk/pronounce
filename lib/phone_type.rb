@@ -47,6 +47,10 @@ module Pronounce
       self.manner <=> type.manner if PhoneType === type
     end
 
+    def articulation? *manners
+      manners.map {|name| Articulation[name]}.include? manner
+    end
+
     def short?
       SHORT_VOWELS.include? name
     end
