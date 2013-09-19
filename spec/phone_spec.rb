@@ -95,5 +95,19 @@ module Pronounce
       end
     end
 
+    describe '#voiced?' do
+      it 'is true for vowels' do
+        expect(Phone.new('AE').voiced?).to be true
+      end
+
+      it 'is true for voiced consonants' do
+        expect(Phone.new('D').voiced?).to be true
+      end
+
+      it 'is false for unvoiced consonants' do
+        expect(Phone.new('CH').voiced?).to be false
+      end
+    end
+
   end
 end

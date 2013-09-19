@@ -1,18 +1,18 @@
 require 'articulation'
 require 'data_reader'
+require 'forwardable'
 
 module Pronounce
   class PhoneType
     SHORT_VOWELS = %w[AE AH EH IH UH]
 
+    extend Forwardable
     include Comparable
 
     class << self
-      def [](name)
-        types[name]
-      end
+      extend Forwardable
 
-      protected :new
+      def_delegators :types, :[]
 
       private
 
@@ -21,36 +21,43 @@ module Pronounce
       end
 
       def parse_types
-        DataReader.phone_types.each_with_object({}) {|line, types|
-          name, articulation = *line.strip.split("\t")
-          types[name] = PhoneType.new name, articulation
-        }
+        [DataReader.articulations, DataReader.phonations].flatten
+          .map {|line| line.strip.split "\t"}
+          .group_by {|(name, _)| name}
+          .each_with_object({}) {|(name, ((_, manner), (_, phonation))), types|
+            types[name] = new(name, manner, phonation)
+          }
       end
+
+      private :new
 
     end
 
     attr_reader :name
 
-    def initialize(name, articulation)
+    def_delegators :manner, :syllabic?
+
+    def initialize(name, manner, phonation)
       @name = name
-      @articulation = Articulation[articulation.to_sym]
+      @manner = Articulation[manner.to_sym]
+      @phonation = phonation
     end
 
     def <=>(type)
-      self.articulation <=> type.articulation if PhoneType === type
+      self.manner <=> type.manner if PhoneType === type
     end
 
     def short?
       SHORT_VOWELS.include? name
     end
 
-    def syllabic?
-      articulation.syllabic?
+    def voiced?
+      phonation == 'voiced'
     end
 
     protected
 
-    attr_reader :articulation
+    attr_reader :manner, :phonation
 
   end
 end

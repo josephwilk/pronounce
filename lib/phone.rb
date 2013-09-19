@@ -1,10 +1,14 @@
+require 'forwardable'
 require 'phone_type'
 
 module Pronounce
   class Phone
+    extend Forwardable
     include Comparable
 
     attr_reader :stress
+
+    def_delegators :type, :short?, :syllabic?, :voiced?
 
     def initialize(symbol)
       @type = PhoneType[symbol[0..1]]
@@ -23,14 +27,6 @@ module Pronounce
 
     def hash
       "#{self.class}:#{type.name}".hash
-    end
-
-    def short?
-      type.short?
-    end
-
-    def syllabic?
-      type.syllabic?
     end
 
     def to_s

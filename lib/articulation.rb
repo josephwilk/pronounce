@@ -22,7 +22,7 @@ module Pronounce
         NAMED_ARTICULATIONS[name]
       end
 
-      protected :new
+      private :new
 
     end
 
