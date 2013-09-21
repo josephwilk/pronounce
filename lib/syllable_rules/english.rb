@@ -11,11 +11,14 @@ module Pronounce::SyllableRules
   # Triplet onsets must start with /s/, followed by a voiceless stop or
   # fricative, and end with an approximant.
   rule :en, 'triplet onsets' do |context|
-    false if context.previous_phone.eql?(::Pronounce::Phone.new('S')) &&
-      !context.previous_phone_in_coda? &&
-      !context.current_phone.voiced? &&
-      context.current_phone.articulation?(:stop, :fricative) &&
-      context.next_phone.approximant?
+    if context.current_cluster.length == 3 &&
+      context.current_cluster[0].eql?(::Pronounce::Phone.new('S')) &&
+      !context.current_cluster[1].voiced? &&
+      context.current_cluster[1].articulation?(:stop, :fricative) &&
+      context.current_cluster[2].approximant?
+
+      context.current_phone.eql?(context.current_cluster[0])
+    end
   end
 
 end

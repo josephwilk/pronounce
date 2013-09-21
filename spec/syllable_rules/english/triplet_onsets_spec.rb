@@ -42,10 +42,28 @@ module Pronounce
         it { should == nil }
       end
 
-      context 'for a voiceless affricate or approximant' do
+      context 'for an approximant or voiceless affricate' do
         let(:phones) { make_phones %w[B EY1 S CH Y EY0 ] }
         let(:syllables) { [make_syllable(%w[B EY1])] }
         it { should == nil }
+      end
+
+      context 'for /s/' do
+        context 'followed by a voiceless stop or fricative and an approximant' do
+          let(:index) { 1 }
+          let(:phones) { make_phones %w[EH0 S P R IY1] } # esprit
+          it { should == true }
+        end
+
+        context 'followed by a voiceless stop or fricative and not an approximant' do
+          let(:phones) { make_phones %w[F AO1 R S T N ER0] } # Forstner
+          it { should == nil }
+        end
+
+        context 'followed by not a voiceless stop or fricative' do
+          let(:phones) { make_phones %w[B EY1 S B L EY0] }
+          it { should == nil }
+        end
       end
 
     end

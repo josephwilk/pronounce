@@ -23,6 +23,10 @@ module Pronounce
       nucleus.any? {|phone| phone.stress > 0 }
     end
 
+    def has_nucleus?
+      !nucleus.empty?
+    end
+
     private
 
     attr_reader :phones
