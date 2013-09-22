@@ -45,7 +45,7 @@ Syllables are split by scanning the pronunciation from the start to finish and a
 
 ```ruby
 module Pronounce::SyllableRules
-  rule :optional_language, 'name of rule' do |context|
+  rule :optional_language, 'name of rule' do
     ...
   end
 
