@@ -8,8 +8,7 @@ module Pronounce::SyllableRules
     end
 
     def rule(*path, &block)
-      rule = Rule.new block
-      rules.add path, rule
+      rules.add path, Rule.new(&block)
     end
 
     def [](name)
