@@ -29,7 +29,7 @@ module Pronounce
           it { should == [%w[HH IH1 L], %w[AH0 K]] }
         end
 
-        context 'for triplet onsets' do
+        context 'for /s/ cluster onsets' do
           let(:word) { Word.new %w[S P L IH1 T] } # split
           it { should == [%w[S P L IH1 T]] }
         end

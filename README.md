@@ -39,7 +39,9 @@ __Semivowels:__ `W, Y`
 
 CMUdict contains pronunciations of <a href="http://en.wikipedia.org/wiki/North_American_English">North American English</a> and ARPAbet represents the phonemes of <a href="http://en.wikipedia.org/wiki/General_American">General American English</a> so those are currently the only dialect and accent supported.
 
-Syllables are split by scanning the pronunciation from the start to finish and applying rules of <a href="http://en.wikipedia.org/wiki/English_phonology">English phonology</a> to determine if the current phone is the start of a new syllable. Rules are defined by the rule DSL. A rule can return a boolean value or `nil` indicating that the rule doesn't apply in the context and other rules should be evaluated.
+Syllables are split by scanning the pronunciation from the start to finish and applying rules of <a href="http://en.wikipedia.org/wiki/English_phonology">English phonology</a> to determine if the current phone is the start of a new syllable. Because the pronunciations are corpus based rules only need to split valid words, not determine if a word is valid.
+
+Rules are defined by the rule DSL. A rule can return a boolean value or `nil` indicating that the rule doesn't apply in the context and other rules should be evaluated.
 
 #### Declaration
 

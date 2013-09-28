@@ -8,14 +8,15 @@ module Pronounce::SyllableRules
     false if context.pending_syllable.stressed? && context.pending_syllable.light?
   end
 
-  # Triplet onsets must start with /s/, followed by a voiceless stop or
-  # fricative, and end with an approximant.
-  rule :en, 'triplet onsets' do |context|
-    if context.current_cluster.length == 3 &&
+  # /s/ may appear before a voiceless stop or fricative which may optionally be
+  # followed by an approximant.
+  rule :en, '/s/ cluster onsets' do |context|
+    if (context.current_cluster.length == 2 ||
+        (context.current_cluster.length == 3 &&
+        context.current_cluster[2].approximant?)) &&
       context.current_cluster[0].eql?(::Pronounce::Phone.new('S')) &&
       !context.current_cluster[1].voiced? &&
-      context.current_cluster[1].articulation?(:stop, :fricative) &&
-      context.current_cluster[2].approximant?
+      context.current_cluster[1].articulation?(:stop, :fricative)
 
       context.current_phone.eql?(context.current_cluster[0])
     end
