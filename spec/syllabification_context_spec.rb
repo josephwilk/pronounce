@@ -162,5 +162,42 @@ module Pronounce
       end
     end
 
+    describe '#word_end_cluster?' do
+      let(:phones) { make_phones %w[Z OW0 AA1 L AH0 JH AH0 S T] } # zoologist
+
+      context 'for a consonant at the end of a word' do
+        let(:index) { 8 }
+
+        it 'is true' do
+          expect(subject.word_end_cluster?).to be true
+        end
+      end
+
+      context 'for a consonant in a cluster at the end of a word' do
+        let(:index) { 7 }
+
+        it 'is true' do
+          expect(subject.word_end_cluster?).to be true
+        end
+      end
+
+      context 'for a vowel at the end of a word' do
+        let(:index) { 6 }
+        let(:phones) {make_phones %w[Z OW0 AA1 L AH0 JH IY0] } # zoology
+
+        it 'is false' do
+          expect(subject.word_end_cluster?).to be false
+        end
+      end
+
+      context 'for a consonant in a cluster not at the end of a word' do
+        let(:index) { 5 }
+
+        it 'is false' do
+          expect(subject.word_end_cluster?).to be false
+        end
+      end
+    end
+
   end
 end

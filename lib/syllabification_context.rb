@@ -49,6 +49,10 @@ module Pronounce
       phone_index == phones.length - 1
     end
 
+    def word_end_cluster?
+      next_vowel_index == nil && !current_cluster.empty?
+    end
+
     private
 
     attr_reader :completed_syllables, :phones, :phone_index

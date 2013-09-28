@@ -16,7 +16,8 @@ module Pronounce::SyllableRules
         context.current_cluster[2].approximant?)) &&
       context.current_cluster[0].eql?(::Pronounce::Phone.new('S')) &&
       !context.current_cluster[1].voiced? &&
-      context.current_cluster[1].articulation?(:stop, :fricative)
+      context.current_cluster[1].articulation?(:stop, :fricative) &&
+      !context.word_end_cluster?
 
       context.current_phone.eql?(context.current_cluster[0])
     end

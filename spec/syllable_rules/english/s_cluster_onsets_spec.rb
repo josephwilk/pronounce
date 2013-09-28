@@ -51,6 +51,11 @@ module Pronounce
           let(:phones) { make_phones %w[M IH1 S F IH2 T] } # misfit
           it { should == nil }
         end
+
+        context 'at a word end' do
+          let(:phones) { make_phones %w[F ER1 S T] }
+          it { should == nil }
+        end
       end
 
       context 'for a voiced stop or fricative' do
@@ -93,6 +98,12 @@ module Pronounce
         context 'followed by not a voiceless stop or fricative' do
           let(:index) { 2 }
           let(:phones) { make_phones %w[B EY1 S B L EY0] }
+          it { should == nil }
+        end
+
+        context 'starting a cluster at a word end' do
+          let(:index) { 2 }
+          let(:phones) { make_phones %w[F ER1 S T] }
           it { should == nil }
         end
       end
