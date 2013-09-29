@@ -4,7 +4,8 @@ module Pronounce
   describe DataReader do
     subject { DataReader }
 
-    its(:phone_types) { should include "AA\tvowel\n" }
+    its(:articulations) { should include "AA\tvowel\n" }
+    its(:phonations) { should include "AA\tvoiced\n" }
     its(:pronunciations) { should include ";;; # CMUdict  --  Major Version: 0.07a [102007]\n" }
 
   end

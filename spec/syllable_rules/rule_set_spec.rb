@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'syllable_rules/rule'
 require 'syllable_rules/rule_set'
 
 module Pronounce::SyllableRules
@@ -12,12 +13,12 @@ module Pronounce::SyllableRules
 
       it 'can be added and accessed' do
         rule_set.add [rule_name], rule
-        expect(rule_set[rule_name]).to eq rule
+        expect(rule_set[rule_name]).to be rule
       end
 
       it 'added with a path create nested rule sets' do
         rule_set.add [set_name, rule_name], rule
-        expect(rule_set[set_name][rule_name]).to eq rule
+        expect(rule_set[set_name][rule_name]).to be rule
       end
     end
 
@@ -35,7 +36,7 @@ module Pronounce::SyllableRules
       it 'returns nil if no rules return a non-nil result' do
         rule = Rule.new { nil }
         rule_set.add ['rule'], rule
-        expect(rule_set.evaluate context).to eq nil
+        expect(rule_set.evaluate context).to be_nil
       end
 
       it 'calls base rules last' do

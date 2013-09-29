@@ -20,6 +20,26 @@ module Pronounce
       end
     end
 
+    describe '#articulation?' do
+      let(:type) { PhoneType['JH'] }
+
+      it 'is true for the correct articulation' do
+        expect(type.articulation? :affricate).to be true
+      end
+
+      it 'is true for a list containing the correct articulation' do
+        expect(type.articulation? :affricate, :vowel).to be true
+      end
+
+      it 'is false for an incorrect articulation' do
+        expect(type.articulation? :stop).to be false
+      end
+
+      it 'is false for a list not containing the correct articulation' do
+        expect(type.articulation? :stop, :vowel).to be false
+      end
+    end
+
     describe '#short?' do
       it 'is true for short vowels' do
         expect(PhoneType['AE'].short?).to be true
@@ -41,6 +61,20 @@ module Pronounce
 
       it 'is false for consonants' do
         expect(PhoneType['ZH'].syllabic?).to be false
+      end
+    end
+
+    describe '#voiced?' do
+      it 'is true for vowels' do
+        expect(PhoneType['AE'].voiced?).to be true
+      end
+
+      it 'is true for voiced consonants' do
+        expect(PhoneType['D'].voiced?).to be true
+      end
+
+      it 'is false for unvoiced consonants' do
+        expect(PhoneType['CH'].voiced?).to be false
       end
     end
 
