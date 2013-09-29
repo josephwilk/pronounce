@@ -62,9 +62,8 @@ module Pronounce
     end
 
     def next_vowel_index
-      phones.each_with_index.find_index {|phone, index|
-        phone.syllabic? && index > phone_index
-      }
+      next_vowel = phones.slice(phone_index...phones.length).find &:syllabic?
+      phones.find_index {|phone| next_vowel.eql? phone }
     end
 
     def valid_pending_syllable_length
