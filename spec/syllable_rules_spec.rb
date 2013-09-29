@@ -9,20 +9,20 @@ module Pronounce
 
       it 'takes a name and a block' do
         result = true
-        SyllableRules.rule(rule_name) {|context| result }
+        SyllableRules.rule(rule_name) { result }
         expect(SyllableRules[rule_name].evaluate nil).to eq result
 
         # clean up
-        SyllableRules.rule(rule_name) {|context| nil }
+        SyllableRules.rule(rule_name) { nil }
       end
 
       it 'can take an arbitrary length path' do
         result = true
-        SyllableRules.rule(set_name, rule_name) {|context| result }
+        SyllableRules.rule(set_name, rule_name) { result }
         expect(SyllableRules[set_name][rule_name].evaluate nil).to eq result
 
         # clean up
-        SyllableRules.rule(set_name, rule_name) {|context| nil }
+        SyllableRules.rule(set_name, rule_name) { nil }
       end
     end
 

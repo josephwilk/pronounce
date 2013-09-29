@@ -47,7 +47,7 @@ Rules are defined by the rule DSL. A rule can return a boolean value or `nil` in
 
 ```ruby
 module Pronounce::SyllableRules
-  rule :optional_language, 'name of rule' do |context|
+  rule :optional_language, 'name of rule' do
     ...
   end
 

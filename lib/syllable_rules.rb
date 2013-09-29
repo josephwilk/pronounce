@@ -9,7 +9,7 @@ module Pronounce::SyllableRules
     def_delegators :rules, :[], :evaluate
 
     def rule(*path, &block)
-      rules.add path, Rule.new(block)
+      rules.add path, Rule.new(&block)
     end
 
     private
