@@ -4,8 +4,12 @@ module Pronounce
     DATA_DIR = File.dirname(__FILE__) + '/../data'
 
     class << self
-      def phone_types
+      def articulations
         File.readlines "#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.phones"
+      end
+
+      def phonations
+        File.readlines "#{DATA_DIR}/cmudict.#{CMUDICT_VERSION}.phonations"
       end
 
       def pronunciations

@@ -1,7 +1,9 @@
 # encoding: UTF-8
 
 require 'spec_helper'
+require 'syllable_rules'
 require 'syllable_rules/english'
+require 'syllabification_context'
 
 module Pronounce
   describe SyllableRules do
@@ -11,7 +13,7 @@ module Pronounce
         SyllableRules[:en]['/ng/ cannot start a syllable'].evaluate context
       end
 
-      let(:phones) { make_phones %w{AA B NG EH NG ER M OW} }
+      let(:phones) { make_phones %w[AA B NG EH NG ER M OW] }
 
       context '/ŋ/ in a cluster' do
         let(:index) { 2 }

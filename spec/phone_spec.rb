@@ -23,6 +23,40 @@ module Pronounce
       end
     end
 
+    describe '#approximant?' do
+      it 'is true for a liquid' do
+        expect(Phone.new('R').approximant?).to be true
+      end
+
+      it 'is true for a glide' do
+        expect(Phone.new('W').approximant?).to be true
+      end
+
+      it 'is false for non-approximants' do
+        expect(Phone.new('P').approximant?).to be false
+      end
+    end
+
+    describe '#articulation?' do
+      let(:phone) { Phone.new 'JH' }
+
+      it 'is true for the correct articulation' do
+        expect(phone.articulation? :affricate).to be true
+      end
+
+      it 'is true for a list containing the correct articulation' do
+        expect(phone.articulation? :affricate, :vowel).to be true
+      end
+
+      it 'is false for an incorrect articulation' do
+        expect(phone.articulation? :stop).to be false
+      end
+
+      it 'is false for a list not containing the correct articulation' do
+        expect(phone.articulation? :stop, :vowel).to be false
+      end
+    end
+
     describe '#eql?' do
       let(:phone) { Phone.new 'AH' }
 
@@ -92,6 +126,20 @@ module Pronounce
     describe '#to_s' do
       it 'includes the type and stress' do
         expect(Phone.new('OY2').to_s).to eq 'OY2'
+      end
+    end
+
+    describe '#voiced?' do
+      it 'is true for vowels' do
+        expect(Phone.new('AE').voiced?).to be true
+      end
+
+      it 'is true for voiced consonants' do
+        expect(Phone.new('D').voiced?).to be true
+      end
+
+      it 'is false for unvoiced consonants' do
+        expect(Phone.new('CH').voiced?).to be false
       end
     end
 
