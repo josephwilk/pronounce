@@ -1,7 +1,7 @@
 module Pronounce
   class DataReader
     CMUDICT_VERSION = '0.7a'
-    DATA_DIR = File.dirname(__FILE__) + '/../data'
+    DATA_DIR = File.dirname(__FILE__) + '/../../data'
 
     class << self
       def articulations

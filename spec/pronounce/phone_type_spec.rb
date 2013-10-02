@@ -1,4 +1,4 @@
-require 'phone_type'
+require 'pronounce/phone_type'
 
 module Pronounce
   describe PhoneType do

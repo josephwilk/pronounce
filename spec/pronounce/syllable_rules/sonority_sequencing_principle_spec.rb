@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'syllable_rules'
-require 'syllable_rules/base'
-require 'syllabification_context'
+require 'pronounce/syllabification_context'
+require 'pronounce/syllable_rules'
+require 'pronounce/syllable_rules/base'
 
 module Pronounce
   describe SyllableRules do

@@ -1,4 +1,4 @@
-require 'data_reader'
+require 'pronounce/data_reader'
 
 module Pronounce
   describe DataReader do

@@ -1,6 +1,6 @@
-require 'articulation'
-require 'data_reader'
 require 'forwardable'
+require 'pronounce/articulation'
+require 'pronounce/data_reader'
 
 module Pronounce
   class PhoneType

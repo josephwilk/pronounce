@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'syllable'
+require 'pronounce/syllable'
 
 module Pronounce
   describe Syllable do

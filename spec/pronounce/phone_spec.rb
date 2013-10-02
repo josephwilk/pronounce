@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'phone'
+require 'pronounce/phone'
 
 module Pronounce
   describe Phone do
