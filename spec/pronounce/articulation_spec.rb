@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'articulation'
+require 'pronounce/articulation'
 
 module Pronounce
   describe Articulation do

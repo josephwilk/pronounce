@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 require 'spec_helper'
-require 'word'
+require 'pronounce/word'
 
 module Pronounce
   describe Word do

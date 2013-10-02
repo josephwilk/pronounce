@@ -1,5 +1,5 @@
-require 'data_reader'
-require 'word'
+require 'pronounce/data_reader'
+require 'pronounce/word'
 
 module Pronounce
   class << self

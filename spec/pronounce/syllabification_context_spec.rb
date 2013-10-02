@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'syllabification_context'
+require 'pronounce/syllabification_context'
 
 module Pronounce
   describe SyllabificationContext do

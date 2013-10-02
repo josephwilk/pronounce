@@ -1,4 +1,4 @@
-require 'syllable'
+require 'pronounce/syllable'
 
 module Pronounce
   class SyllabificationContext

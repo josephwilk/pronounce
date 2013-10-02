@@ -1,5 +1,5 @@
-require 'phone'
-require 'syllable'
+require 'pronounce/phone'
+require 'pronounce/syllable'
 
 def make_phones(symbols)
   symbols.map {|symbol| Pronounce::Phone.new symbol }
