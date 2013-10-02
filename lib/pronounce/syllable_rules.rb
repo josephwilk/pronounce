@@ -1,6 +1,6 @@
 require 'forwardable'
-require 'syllable_rules/rule'
-require 'syllable_rules/rule_set'
+require 'pronounce/syllable_rules/rule'
+require 'pronounce/syllable_rules/rule_set'
 
 module Pronounce::SyllableRules
   class << self

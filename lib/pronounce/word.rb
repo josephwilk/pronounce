@@ -1,9 +1,9 @@
-require 'phone'
-require 'syllabification_context'
-require 'syllable'
-require 'syllable_rules'
-require 'syllable_rules/base'
-require 'syllable_rules/english'
+require 'pronounce/phone'
+require 'pronounce/syllabification_context'
+require 'pronounce/syllable'
+require 'pronounce/syllable_rules'
+require 'pronounce/syllable_rules/base'
+require 'pronounce/syllable_rules/english'
 
 module Pronounce
   class Word
