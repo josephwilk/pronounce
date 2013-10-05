@@ -8,6 +8,16 @@ module Pronounce::SyllableRules
     false if pending_syllable.stressed? && pending_syllable.light?
   end
 
+  rule :en, 'doublet onsets' do
+    false if current_cluster.length == 2 &&
+      !current_cluster[0].eql?(::Pronounce::Phone.new('S')) &&
+      !(current_cluster[1].eql?(::Pronounce::Phone.new('Y')) ||
+        current_cluster[1].approximant? &&
+          (current_cluster[0].articulation?(:stop) ||
+            (current_cluster[0].articulation?(:fricative) &&
+              !current_cluster[0].voiced?)))
+  end
+
   # /s/ may appear before a voiceless stop or fricative which may optionally be
   # followed by an approximant.
   rule :en, '/s/ cluster onsets' do
