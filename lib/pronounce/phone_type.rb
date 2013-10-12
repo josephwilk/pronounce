@@ -59,6 +59,10 @@ module Pronounce
       phonation == 'voiced'
     end
 
+    def voiceless?
+      !voiced?
+    end
+
     protected
 
     attr_reader :manner, :phonation

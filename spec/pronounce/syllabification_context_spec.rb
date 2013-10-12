@@ -92,6 +92,14 @@ module Pronounce
         end
       end
 
+      context 'when the next vowel has the same phone type as a previous vowel' do
+        let(:phones) { make_phones %w[IH0 V EH1 N CH AH0 W AH0 L IY0] } # eventually
+        let(:index) { 6 }
+
+        it 'returns the whole cluster' do
+          expect(subject.current_cluster).to eq make_phones(%w[W])
+        end
+      end
     end
 
     describe '#pending_syllable' do
