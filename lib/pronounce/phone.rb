@@ -8,7 +8,8 @@ module Pronounce
 
     attr_reader :stress
 
-    def_delegators :type, :articulation?, :short?, :syllabic?, :voiced?
+    def_delegators :type, :articulation?, :short?, :syllabic?,
+                          :voiced?, :voiceless?
 
     def initialize(symbol)
       @type = PhoneType[symbol[0..1]]

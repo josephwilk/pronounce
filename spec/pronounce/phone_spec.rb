@@ -143,5 +143,11 @@ module Pronounce
       end
     end
 
+    describe '#voiceless?' do
+      it 'is the opposite of #voiced?' do
+        expect(Phone.new('JH').voiceless?).to be false
+      end
+    end
+
   end
 end

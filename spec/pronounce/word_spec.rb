@@ -29,9 +29,19 @@ module Pronounce
           it { should == [%w[HH IH1 L], %w[AH0 K]] }
         end
 
+        context 'for doublet onsets' do
+          let(:word) { Word.new %w[IY1 V N IH0 NG] } # evening
+          it { should == [%w[IY1 V], %w[N IH0 NG]] }
+        end
+
         context 'for /s/ cluster onsets' do
           let(:word) { Word.new %w[S P L IH1 T] } # split
           it { should == [%w[S P L IH1 T]] }
+        end
+
+        context 'without onset cluster rules conflicting with each other' do
+          let(:word) { Word.new %w[B AY1 OW0 S F IH2 R] } # biosphere
+          it { should == [%w[B AY1], %w[OW0], %w[S F IH2 R]] }
         end
       end
     end
