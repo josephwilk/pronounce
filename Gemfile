@@ -7,5 +7,6 @@ group :development do
 end
 
 group :test do
+  gem 'rake'
   gem 'rspec', '~> 2.14.1'
 end
