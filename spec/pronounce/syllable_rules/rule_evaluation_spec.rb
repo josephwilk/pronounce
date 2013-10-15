@@ -19,12 +19,6 @@ module Pronounce::SyllableRules
           definition = proc { verbatim {|context| context } }
           expect(RuleEvaluation.result(definition, result)).to eq result
         end
-
-        it 'has lambda semantics for the wrapped block' do
-          result = true
-          definition = proc { verbatim {|context| return context } }
-          expect(RuleEvaluation.result(definition, result)).to eq result
-        end
       end
     end
 
