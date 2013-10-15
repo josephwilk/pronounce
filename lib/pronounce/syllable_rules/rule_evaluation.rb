@@ -3,7 +3,7 @@ require 'pronounce/syllable_rules/verbatim_definition'
 module Pronounce::SyllableRules
   class RuleEvaluation
     class << self
-      def result(definition, context)
+      def result_for(definition, context)
         new(context).instance_eval &definition
       end
 

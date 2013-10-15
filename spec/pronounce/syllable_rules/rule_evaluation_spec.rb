@@ -9,7 +9,7 @@ module Pronounce::SyllableRules
 
     it 'evaluates a rule definition for a context' do
       result = true
-      expect(RuleEvaluation.result(proc { context }, result)).to eq result
+      expect(RuleEvaluation.result_for proc { context }, result).to eq result
     end
 
     context 'DSL:' do
@@ -17,7 +17,7 @@ module Pronounce::SyllableRules
         it 'wraps a block that exposes the context' do
           result = true
           definition = proc { verbatim {|context| context } }
-          expect(RuleEvaluation.result(definition, result)).to eq result
+          expect(RuleEvaluation.result_for definition, result).to eq result
         end
       end
     end

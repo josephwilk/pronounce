@@ -7,7 +7,7 @@ module Pronounce::SyllableRules
     end
 
     def evaluate(context)
-      RuleEvaluation.result(definition, context)
+      RuleEvaluation.result_for definition, context
     end
 
     private
