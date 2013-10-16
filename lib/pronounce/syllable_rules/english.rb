@@ -14,13 +14,13 @@ module Pronounce::SyllableRules
 
   rule :en, 'doublet onsets' do
     verbatim do |context|
-      false if context.current_cluster.length == 2 &&
-        !context.current_cluster[0].eql?(::Pronounce::Phone.new('S')) &&
-        !(context.current_cluster[1].eql?(::Pronounce::Phone.new('Y')) ||
-          context.current_cluster[1].approximant? &&
-            (context.current_cluster[0].articulation?(:stop) ||
-              (context.current_cluster[0].articulation?(:fricative) &&
-                context.current_cluster[0].voiceless?)))
+      false if context.current_onset.length == 2 &&
+        !context.current_onset[0].eql?(::Pronounce::Phone.new('S')) &&
+        !(context.current_onset[1].eql?(::Pronounce::Phone.new('Y')) ||
+          context.current_onset[1].approximant? &&
+            (context.current_onset[0].articulation?(:stop) ||
+              (context.current_onset[0].articulation?(:fricative) &&
+                context.current_onset[0].voiceless?)))
     end
   end
 
@@ -28,14 +28,13 @@ module Pronounce::SyllableRules
   # followed by an approximant.
   rule :en, '/s/ cluster onsets' do
     verbatim do |context|
-      if (context.current_cluster.length == 2 ||
-          (context.current_cluster.length == 3 && context.current_cluster[2].approximant?)) &&
-        context.current_cluster[0].eql?(::Pronounce::Phone.new('S')) &&
-        context.current_cluster[1].voiceless? &&
-        context.current_cluster[1].articulation?(:stop, :fricative) &&
-        !context.word_end_cluster?
+      if (context.current_onset.length == 2 ||
+          (context.current_onset.length == 3 && context.current_onset[2].approximant?)) &&
+        context.current_onset[0].eql?(::Pronounce::Phone.new('S')) &&
+        context.current_onset[1].voiceless? &&
+        context.current_onset[1].articulation?(:stop, :fricative)
 
-        context.current_phone.eql?(context.current_cluster[0])
+        context.current_phone.eql?(context.current_onset[0])
       end
     end
   end

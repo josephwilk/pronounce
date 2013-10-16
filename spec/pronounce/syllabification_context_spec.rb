@@ -38,30 +38,30 @@ module Pronounce
       its(:previous_phone) { should eq Phone.new 'D' }
     end
 
-    describe '#current_cluster' do
+    describe '#current_onset' do
       let(:phones) { make_phones %w[S P R AE1 NG] } # sprang
 
-      context 'at the start of a cluster' do
+      context 'at the start of an onset' do
         let(:index) { 0 }
 
-        it 'returns the whole cluster' do
-          expect(subject.current_cluster).to eq make_phones(%w[S P R])
+        it 'returns the whole onset' do
+          expect(subject.current_onset).to eq make_phones(%w[S P R])
         end
       end
 
-      context 'in the middle of a cluster' do
+      context 'in the middle of an onset' do
         let(:index) { 1 }
 
-        it 'returns the whole cluster' do
-          expect(subject.current_cluster).to eq make_phones(%w[S P R])
+        it 'returns the whole onset' do
+          expect(subject.current_onset).to eq make_phones(%w[S P R])
         end
       end
 
-      context 'at the end of a cluster' do
+      context 'at the end of an onset' do
         let(:index) { 2 }
 
-        it 'returns the whole cluster' do
-          expect(subject.current_cluster).to eq make_phones(%w[S P R])
+        it 'returns the whole onset' do
+          expect(subject.current_onset).to eq make_phones(%w[S P R])
         end
       end
 
@@ -71,7 +71,7 @@ module Pronounce
         let(:index) { 3 }
 
         it 'that phone is not included' do
-          expect(subject.current_cluster).to eq make_phones(%w[S P L])
+          expect(subject.current_onset).to eq make_phones(%w[S P L])
         end
       end
 
@@ -80,7 +80,16 @@ module Pronounce
         let(:index) { 2 }
 
         it 'that phone is not included' do
-          expect(subject.current_cluster).to eq make_phones(%w[S P L])
+          expect(subject.current_onset).to eq make_phones(%w[S P L])
+        end
+      end
+
+      context 'when the current phone is in a coda' do
+        let(:phones) { make_phones %w[T R UW1 TH S] } # truths
+        let(:index) { 3 }
+
+        it 'returns an empty array' do
+          expect(subject.current_onset).to eq []
         end
       end
 
@@ -88,7 +97,7 @@ module Pronounce
         let(:index) { 3 }
 
         it 'returns an empty array' do
-          expect(subject.current_cluster).to eq []
+          expect(subject.current_onset).to eq []
         end
       end
 
@@ -96,8 +105,8 @@ module Pronounce
         let(:phones) { make_phones %w[IH0 V EH1 N CH AH0 W AH0 L IY0] } # eventually
         let(:index) { 6 }
 
-        it 'returns the whole cluster' do
-          expect(subject.current_cluster).to eq make_phones(%w[W])
+        it 'returns the whole onset' do
+          expect(subject.current_onset).to eq make_phones(%w[W])
         end
       end
     end
@@ -166,43 +175,6 @@ module Pronounce
 
         it 'is true' do
           expect(subject.sonority_trough?).to be true
-        end
-      end
-    end
-
-    describe '#word_end_cluster?' do
-      let(:phones) { make_phones %w[Z OW0 AA1 L AH0 JH AH0 S T] } # zoologist
-
-      context 'for a consonant at the end of a word' do
-        let(:index) { 8 }
-
-        it 'is true' do
-          expect(subject.word_end_cluster?).to be true
-        end
-      end
-
-      context 'for a consonant in a cluster at the end of a word' do
-        let(:index) { 7 }
-
-        it 'is true' do
-          expect(subject.word_end_cluster?).to be true
-        end
-      end
-
-      context 'for a vowel at the end of a word' do
-        let(:index) { 6 }
-        let(:phones) {make_phones %w[Z OW0 AA1 L AH0 JH IY0] } # zoology
-
-        it 'is false' do
-          expect(subject.word_end_cluster?).to be false
-        end
-      end
-
-      context 'for a consonant in a cluster not at the end of a word' do
-        let(:index) { 5 }
-
-        it 'is false' do
-          expect(subject.word_end_cluster?).to be false
         end
       end
     end
