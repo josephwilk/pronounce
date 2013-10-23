@@ -16,6 +16,15 @@ module Pronounce::SyllableRules
 
     ## DSL ########
 
+    def cannot_match(symbol)
+      lambda {|matcher| false if matcher.eql? [Pronounce::Phone.new(symbol)] }
+    end
+
+    def onset(predicate)
+      return nil if context.current_onset == []
+      predicate.call context.current_onset
+    end
+
     def verbatim(&block)
       VerbatimDefinition.new(block).evaluate context
     end

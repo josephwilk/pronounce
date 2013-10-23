@@ -1,8 +1,6 @@
 module Pronounce::SyllableRules
   rule :en, '/ng/ cannot start a syllable' do
-    verbatim do |context|
-      false if context.current_phone.eql? ::Pronounce::Phone.new 'NG'
-    end
+    onset cannot_match 'NG'
   end
 
   # http://en.wikipedia.org/wiki/Syllable_weight#Linguistics
