@@ -25,15 +25,15 @@ module Pronounce::SyllableRules
     describe '#evaluate' do
       let(:context) { Object.new }
 
-      it 'returns the first non-nil result from a rule' do
-        result = true
-        rule_set.add ['nil'], Rule.new {}
+      it 'returns the first result from an applicable rule' do
+        result = :new_syllable
+        rule_set.add ['nil'], Rule.new { :not_applicable }
         rule_set.add ['result'], Rule.new { result }
-        rule_set.add [:base, 'base'], Rule.new { false }
+        rule_set.add [:base, 'base'], Rule.new { :no_new_syllable }
         expect(rule_set.evaluate context).to eq result
       end
 
-      it 'returns nil if no rules return a non-nil result' do
+      it 'returns :not_applicable if no rules apply' do
         rule = Rule.new { nil }
         rule_set.add ['rule'], rule
         expect(rule_set.evaluate context).to be_nil
@@ -42,9 +42,15 @@ module Pronounce::SyllableRules
       it 'calls base rules last' do
         final_rule_called = false
         first_added_rule = Rule.new {}
-        first_added_rule.stub(:evaluate) { raise if final_rule_called }
+        first_added_rule.stub(:evaluate) do
+          raise if final_rule_called
+          :not_applicable
+        end
         last_added_rule = Rule.new {}
-        last_added_rule.stub(:evaluate) { raise if final_rule_called }
+        last_added_rule.stub(:evaluate) do
+          raise if final_rule_called
+          :not_applicable
+        end
         final_rule = Rule.new {}
         final_rule.stub(:evaluate) { final_rule_called = true }
         rule_set.add [:set_1, 'first added'], first_added_rule

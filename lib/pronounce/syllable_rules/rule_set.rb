@@ -21,10 +21,10 @@ module Pronounce::SyllableRules
     end
 
     def evaluate(context)
-      base_rules = -> { rules[:base].evaluate context if rules[:base] }
+      base_rules = -> { rules[:base] ? rules[:base].evaluate(context) : :not_applicable }
       rules.reject {|key, _| key == :base }.
         map {|_, rule| rule.evaluate context }.
-        find(base_rules) {|result| !result.nil? }
+        find(base_rules) {|result| result != :not_applicable }
     end
 
     private
