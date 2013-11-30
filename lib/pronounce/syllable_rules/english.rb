@@ -18,7 +18,6 @@ module Pronounce::SyllableRules
 
   rule :en, 'doublet onsets' do
     if current_cluster.length == 2 &&
-      !current_cluster[0].eql?(::Pronounce::Phone.new('S')) &&
       !(current_cluster[1].eql?(::Pronounce::Phone.new('Y')) ||
         current_cluster[1].approximant? &&
           (current_cluster[0].articulation?(:stop) ||
