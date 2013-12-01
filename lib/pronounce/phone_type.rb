@@ -10,9 +10,13 @@ module Pronounce
     include Comparable
 
     class << self
-      extend Forwardable
-
-      def_delegators :types, :[]
+      def [](name)
+        if types.has_key? name
+          types[name]
+        else
+          raise ArgumentError.new('invalid name')
+        end
+      end
 
       private
 
