@@ -25,35 +25,12 @@ module Pronounce::SyllableRules
     describe '#evaluate' do
       let(:context) { Object.new }
 
-      it 'returns the first non-nil result from a rule' do
-        result = true
-        rule_set.add ['nil'], Rule.new {}
-        rule_set.add ['result'], Rule.new { result }
-        rule_set.add [:base, 'base'], Rule.new { false }
+      it 'returns the greatest result' do
+        result = :no_new_syllable
+        rule_set.add [:lang, 'NA'], Rule.new { :not_applicable }
+        rule_set.add [:lang, 'highest'], Rule.new { result }
+        rule_set.add [:base, 'base'], Rule.new { :new_syllable }
         expect(rule_set.evaluate context).to eq result
-      end
-
-      it 'returns nil if no rules return a non-nil result' do
-        rule = Rule.new { nil }
-        rule_set.add ['rule'], rule
-        expect(rule_set.evaluate context).to be_nil
-      end
-
-      it 'calls base rules last' do
-        final_rule_called = false
-        first_added_rule = Rule.new {}
-        first_added_rule.stub(:evaluate) { raise if final_rule_called }
-        last_added_rule = Rule.new {}
-        last_added_rule.stub(:evaluate) { raise if final_rule_called }
-        final_rule = Rule.new {}
-        final_rule.stub(:evaluate) { final_rule_called = true }
-        rule_set.add [:set_1, 'first added'], first_added_rule
-        rule_set.add [:base, 'final rule'], final_rule
-        rule_set.add [:set_2, 'last added'], last_added_rule
-        rule_set.evaluate context
-        expect(first_added_rule).to have_received :evaluate
-        expect(last_added_rule).to have_received :evaluate
-        expect(final_rule).to have_received :evaluate
       end
     end
 

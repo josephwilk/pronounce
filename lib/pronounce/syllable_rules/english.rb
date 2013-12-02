@@ -1,21 +1,32 @@
 module Pronounce::SyllableRules
   rule :en, '/ng/ cannot start a syllable' do
-    false if current_phone.eql? ::Pronounce::Phone.new 'NG'
+    if current_phone.eql? ::Pronounce::Phone.new 'NG'
+      :no_new_syllable
+    else
+      :not_applicable
+    end
   end
 
   # http://en.wikipedia.org/wiki/Syllable_weight#Linguistics
   rule :en, 'stressed syllables cannot be light' do
-    false if pending_syllable.stressed? && pending_syllable.light?
+    if pending_syllable.stressed? && pending_syllable.light?
+      :no_new_syllable
+    else
+      :not_applicable
+    end
   end
 
   rule :en, 'doublet onsets' do
-    false if current_cluster.length == 2 &&
-      !current_cluster[0].eql?(::Pronounce::Phone.new('S')) &&
+    if current_cluster.length == 2 &&
       !(current_cluster[1].eql?(::Pronounce::Phone.new('Y')) ||
         current_cluster[1].approximant? &&
           (current_cluster[0].articulation?(:stop) ||
             (current_cluster[0].articulation?(:fricative) &&
               current_cluster[0].voiceless?)))
+      :no_new_syllable
+    else
+      :not_applicable
+    end
   end
 
   # /s/ may appear before a voiceless stop or fricative which may optionally be
@@ -28,7 +39,9 @@ module Pronounce::SyllableRules
       current_cluster[1].articulation?(:stop, :fricative) &&
       !word_end_cluster?
 
-      current_phone.eql?(current_cluster[0])
+      current_phone.eql?(current_cluster[0]) ? :new_syllable : :no_new_syllable
+    else
+      :not_applicable
     end
   end
 
