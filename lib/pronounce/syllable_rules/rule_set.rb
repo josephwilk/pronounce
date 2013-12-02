@@ -1,4 +1,5 @@
 require 'forwardable'
+require 'pronounce/syllable_rules/rule_result'
 
 module Pronounce::SyllableRules
   class RuleSet
@@ -21,10 +22,7 @@ module Pronounce::SyllableRules
     end
 
     def evaluate(context)
-      base_rules = -> { rules[:base].evaluate context if rules[:base] }
-      rules.reject {|key, _| key == :base }.
-        map {|_, rule| rule.evaluate context }.
-        find(base_rules) {|result| !result.nil? }
+      rules.map {|key, rule| RuleResult.new(key, rule.evaluate(context)) }.max.value
     end
 
     private
