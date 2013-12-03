@@ -44,8 +44,48 @@ module Pronounce::SyllableRules
         end
       end
 
+      describe '#syllable' do
+        let(:context) {
+          Pronounce::SyllabificationContext.new [],
+                                                make_phones(%w[S IH1 L AH0 B AH0 L]),
+                                                index # syllable
+        }
+        let(:definition) { proc { syllable proc {|pending_syllable| pending_syllable } } }
+        let(:index) { 2 }
+
+        it 'evaluates a proc for the pending syllable of the context' do
+          expect(RuleEvaluation.result_for(definition, context).to_strings).to eq %w[S IH1]
+        end
+      end
+
+      describe '#cannot_be' do
+        it 'returns a proc to be evaluated by subject methods' do
+          definition = proc { cannot_be :stressed }
+          expect(RuleEvaluation.result_for definition, nil).to be_an_instance_of Proc
+        end
+
+        it 'fails if parameters are not names of interogative method on the subject' do
+          matcher = RuleEvaluation.result_for(proc { cannot_be :nope }, nil)
+          expect { matcher.call Object.new }.to raise_error NoMethodError
+        end
+
+        context 'when the parameters evaluate to true on the subject' do
+          it 'returns :no_new_syllable' do
+            matcher = RuleEvaluation.result_for(proc { cannot_be :frozen }, nil)
+            expect(matcher.call Object.new.freeze).to be :no_new_syllable
+          end
+        end
+
+        context 'when the parameters evaluate to false on the subject' do
+          it 'returns :not_applicable' do
+            matcher = RuleEvaluation.result_for(proc { cannot_be :frozen }, nil)
+            expect(matcher.call Object.new).to be :not_applicable
+          end
+        end
+      end
+
       describe '#cannot_match' do
-        it 'returns a proc to be evaluated by other methods' do
+        it 'returns a proc to be evaluated by subject methods' do
           definition = proc { cannot_match 'M' }
           expect(RuleEvaluation.result_for definition, nil).to be_an_instance_of Proc
         end
@@ -60,14 +100,14 @@ module Pronounce::SyllableRules
           expect { matcher.call make_phones %w[CH] }.to raise_error ArgumentError
         end
 
-        context 'when the parameter to the proc matches the method parameter' do
+        context 'when the subject matches the parameter' do
           it 'returns :no_new_syllable' do
             matcher = RuleEvaluation.result_for(proc { cannot_match 'CH' }, nil)
             expect(matcher.call make_phones %w[CH]).to be :no_new_syllable
           end
         end
 
-        context "when the parameter to the proc doesn't match the method parameter" do
+        context "when the subject doesn't match the parameter" do
           it 'returns :not_applicable' do
             matcher = RuleEvaluation.result_for(proc { cannot_match 'T' }, nil)
             expect(matcher.call make_phones %w[CH]).to be :not_applicable

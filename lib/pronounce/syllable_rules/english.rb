@@ -5,13 +5,7 @@ module Pronounce::SyllableRules
 
   # http://en.wikipedia.org/wiki/Syllable_weight#Linguistics
   rule :en, 'stressed syllables cannot be light' do
-    verbatim do |context|
-      if context.pending_syllable.stressed? && context.pending_syllable.light?
-        :no_new_syllable
-      else
-        :not_applicable
-      end
-    end
+    syllable cannot_be :stressed, :light
   end
 
   rule :en, 'doublet onsets' do
