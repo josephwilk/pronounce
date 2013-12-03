@@ -32,15 +32,19 @@ module Pronounce
     attr_reader :phones
 
     def coda
-      phones.chunk {|item| item.syllabic? }
+      sections_with_syllabicity
         .drop_while {|syllabic, _| !syllabic } # drop onset
         .collect {|_, section| section }.fetch(1, [])
     end
 
     def nucleus
-      phones.chunk {|item| item.syllabic? }
+      sections_with_syllabicity
         .select {|syllabic, _| syllabic }
         .collect {|_, section| section }.fetch(0, [])
+    end
+
+    def sections_with_syllabicity
+      phones.chunk {|item| item.syllabic? }
     end
 
   end
