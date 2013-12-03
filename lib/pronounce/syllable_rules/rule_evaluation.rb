@@ -17,11 +17,17 @@ module Pronounce::SyllableRules
     ## DSL ########
 
     def cannot_match(symbol)
-      lambda {|matcher| false if matcher.eql? [Pronounce::Phone.new(symbol)] }
+      lambda {|matcher|
+        if matcher.eql? [Pronounce::Phone.new(symbol)]
+          :no_new_syllable 
+        else
+          :not_applicable
+        end
+      }
     end
 
     def onset(predicate)
-      return nil if context.current_onset == []
+      return :not_applicable if context.current_onset == []
       predicate.call context.current_onset
     end
 

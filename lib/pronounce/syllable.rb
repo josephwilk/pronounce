@@ -5,7 +5,7 @@ module Pronounce
     extend Forwardable
 
     def_delegator :coda, :include?, :coda_contains?
-    def_delegator :phones, :count, :length
+    def_delegator :phones, :length, :length
 
     def initialize(phones)
       @phones = phones
@@ -38,8 +38,7 @@ module Pronounce
     end
 
     def nucleus
-      # https://github.com/jruby/jruby/issues/836
-      phones.chunk {|item| item.syllabic? }.to_a
+      phones.chunk {|item| item.syllabic? }
         .select {|syllabic, _| syllabic }
         .collect {|_, section| section }.fetch(0, [])
     end

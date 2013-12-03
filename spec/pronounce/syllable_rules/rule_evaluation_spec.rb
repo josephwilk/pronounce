@@ -9,14 +9,14 @@ module Pronounce::SyllableRules
     end
 
     it 'evaluates a rule definition for a context' do
-      result = true
+      result = :new_syllable
       expect(RuleEvaluation.result_for proc { context }, result).to eq result
     end
 
     context 'DSL:' do
       describe '#verbatim' do
         it 'wraps a block that exposes the context' do
-          result = true
+          result = :new_syllable
           definition = proc { verbatim {|context| context } }
           expect(RuleEvaluation.result_for definition, result).to eq result
         end
@@ -38,8 +38,8 @@ module Pronounce::SyllableRules
         context "when the current phone isn't in an onset" do
           let(:index) { 3 }
 
-          it 'returns nil' do
-            expect(RuleEvaluation.result_for definition, context).to be_nil
+          it 'returns :not_applicable' do
+            expect(RuleEvaluation.result_for definition, context).to be :not_applicable
           end
         end
       end
@@ -61,16 +61,16 @@ module Pronounce::SyllableRules
         end
 
         context 'when the parameter to the proc matches the method parameter' do
-          it 'returns false' do
+          it 'returns :no_new_syllable' do
             matcher = RuleEvaluation.result_for(proc { cannot_match 'CH' }, nil)
-            expect(matcher.call make_phones %w[CH]).to be false
+            expect(matcher.call make_phones %w[CH]).to be :no_new_syllable
           end
         end
 
         context "when the parameter to the proc doesn't match the method parameter" do
-          it 'returns true' do
+          it 'returns :not_applicable' do
             matcher = RuleEvaluation.result_for(proc { cannot_match 'T' }, nil)
-            expect(matcher.call make_phones %w[CH]).to be nil
+            expect(matcher.call make_phones %w[CH]).to be :not_applicable
           end
         end
       end

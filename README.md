@@ -41,7 +41,7 @@ CMUdict contains pronunciations of <a href="http://en.wikipedia.org/wiki/North_A
 
 Syllables are split by scanning the pronunciation from the start to finish and applying rules of <a href="http://en.wikipedia.org/wiki/English_phonology">English phonology</a> to determine if the current phone is the start of a new syllable. Because the pronunciations are corpus based rules only need to split valid words, not determine if a word is valid.
 
-Rules are defined by the rule DSL. A rule can return a boolean value or `nil` indicating that the rule doesn't apply in the context and other rules should be evaluated.
+Rules are defined by the rule DSL. A rule can return `:new_syllable`, `:no_new_syllable`, or `:not_applicable` indicating that the rule doesn't apply in the context and other rules should be evaluated.
 
 #### Declaration
 
@@ -57,5 +57,5 @@ end
 ## Ruby Support
 
 * MRI 1.9+
-* JRuby 1.7.4 (1.9 mode only)
+* JRuby 1.7.5 (1.9 mode only)
 * Rubinius (1.9 mode only)
