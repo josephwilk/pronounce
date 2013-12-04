@@ -12,8 +12,8 @@ module Pronounce::SyllableRules
     def <=>(other)
       return unless RuleResult === other
 
-      compare_by_not_applicable(other.value) ||
-      compare_by_base(other.name) ||
+      compare_by(:not_applicable, value, other.value) ||
+      compare_by(:base, name, other.name) ||
       compare_by_value(other.value)
     end
 
@@ -23,19 +23,9 @@ module Pronounce::SyllableRules
 
     private
 
-    def compare_by_not_applicable(other_value)
-      if [value, other_value].one? {|v| v == :not_applicable }
-        if value == :not_applicable
-          -1
-        else
-          1
-        end
-      end
-    end
-
-    def compare_by_base(other_name)
-      if [name, other_name].one? {|n| n == :base }
-        if name == :base
+    def compare_by(lower_value, attribute, other_attribute)
+      if [attribute, other_attribute].one? {|a| a == lower_value }
+        if attribute == lower_value
           -1
         else
           1
