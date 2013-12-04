@@ -13,7 +13,6 @@ module Pronounce
 
     def initialize(symbol)
       @type = PhoneType[symbol[0..1]]
-      raise ArgumentError.new('invalid symbol') unless @type
       @stress = symbol[2].to_i if symbol.length == 3
     end
 
