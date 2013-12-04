@@ -1,3 +1,5 @@
+require 'pronounce/syllable_rules/rule_evaluation'
+
 module Pronounce::SyllableRules
   class Rule
     def initialize(&definition)
@@ -5,10 +7,7 @@ module Pronounce::SyllableRules
     end
 
     def evaluate(context)
-      context.define_singleton_method :_, &definition
-      result = context._
-      context.singleton_class.send :remove_method, :_
-      result
+      RuleEvaluation.result_for definition, context
     end
 
     private

@@ -8,9 +8,9 @@ module Pronounce
       @phone_index = phone_index
     end
 
-    def current_cluster
-      return [] if phones[phone_index].syllabic?
-      phones.slice(valid_syllables_length...next_vowel_index || phones.length)
+    def current_onset
+      return [] if phones[phone_index].syllabic? || next_vowel_index == nil
+      phones.slice(valid_syllables_length...next_vowel_index)
     end
 
     def current_phone
@@ -47,10 +47,6 @@ module Pronounce
 
     def word_end?
       phone_index == phones.length - 1
-    end
-
-    def word_end_cluster?
-      next_vowel_index == nil && !current_cluster.empty?
     end
 
     private
