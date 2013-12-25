@@ -58,4 +58,4 @@ end
 
 * MRI 1.9+
 * JRuby 1.7.5 (1.9 mode only)
-* Rubinius (1.9 mode only)
+* Rubinius 2.1
