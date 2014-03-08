@@ -7,7 +7,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     coderay (1.0.9)
-    diff-lcs (1.2.4)
+    diff-lcs (1.2.5)
     ffi (1.9.0-java)
     method_source (0.8.1)
     pry (0.9.12.2)
@@ -20,14 +20,14 @@ GEM
       slop (~> 3.4)
       spoon (~> 0.0)
     rake (10.1.0)
-    rspec (2.14.1)
-      rspec-core (~> 2.14.0)
-      rspec-expectations (~> 2.14.0)
-      rspec-mocks (~> 2.14.0)
-    rspec-core (2.14.2)
-    rspec-expectations (2.14.0)
+    rspec (2.99.0.beta1)
+      rspec-core (= 2.99.0.beta1)
+      rspec-expectations (= 2.99.0.beta1)
+      rspec-mocks (= 2.99.0.beta1)
+    rspec-core (2.99.0.beta1)
+    rspec-expectations (2.99.0.beta1)
       diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.14.1)
+    rspec-mocks (2.99.0.beta1)
     slop (3.4.5)
     spoon (0.0.4)
       ffi
@@ -40,4 +40,4 @@ DEPENDENCIES
   pronounce!
   pry
   rake
-  rspec (~> 2.14.1)
+  rspec (~> 2.14.beta)
