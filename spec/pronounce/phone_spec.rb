@@ -3,19 +3,17 @@ require 'pronounce/phone'
 
 module Pronounce
   describe Phone do
-    describe '.new' do
-      it 'fails if symbol is not in Pronounce.symbols' do
-        expect { Phone.new 'ZA' }.to raise_error ArgumentError
-      end
+    it '.new fails if symbol is not in Pronounce.symbols' do
+      expect { Phone.new('ZA') }.to raise_error ArgumentError
     end
 
     describe '#<=>' do
       it 'is based on sonority' do
-        expect(Phone.new 'AH').to eq Phone.new('UW')
-        expect(Phone.new 'P').to be <  Phone.new('CH')
-        expect(Phone.new 'F').to be <= Phone.new('Z')
-        expect(Phone.new 'M').to be >= Phone.new('N')
-        expect(Phone.new 'W').to be >  Phone.new('R')
+        expect(Phone.new('AH')).to eq Phone.new('UW')
+        expect(Phone.new('P')).to be <  Phone.new('CH')
+        expect(Phone.new('F')).to be <= Phone.new('Z')
+        expect(Phone.new('M')).to be >= Phone.new('N')
+        expect(Phone.new('W')).to be >  Phone.new('R')
       end
 
       it 'fails when trying to compare to a non-Phone' do
@@ -38,27 +36,27 @@ module Pronounce
     end
 
     describe '#articulation?' do
-      let(:phone) { Phone.new 'JH' }
+      let(:phone) { Phone.new('JH') }
 
       it 'is true for the correct articulation' do
-        expect(phone.articulation? :affricate).to be true
+        expect(phone.articulation?(:affricate)).to be true
       end
 
       it 'is true for a list containing the correct articulation' do
-        expect(phone.articulation? :affricate, :vowel).to be true
+        expect(phone.articulation?(:affricate, :vowel)).to be true
       end
 
       it 'is false for an incorrect articulation' do
-        expect(phone.articulation? :stop).to be false
+        expect(phone.articulation?(:stop)).to be false
       end
 
       it 'is false for a list not containing the correct articulation' do
-        expect(phone.articulation? :stop, :vowel).to be false
+        expect(phone.articulation?(:stop, :vowel)).to be false
       end
     end
 
     describe '#eql?' do
-      let(:phone) { Phone.new 'AH' }
+      let(:phone) { Phone.new('AH') }
 
       it 'is true for an instance of the same phone' do
         expect(phone).to eql Phone.new('AH')
@@ -123,10 +121,8 @@ module Pronounce
       end
     end
 
-    describe '#to_s' do
-      it 'includes the type and stress' do
-        expect(Phone.new('OY2').to_s).to eq 'OY2'
-      end
+    it '#to_s includes the type and stress' do
+      expect(Phone.new('OY2').to_s).to eq 'OY2'
     end
 
     describe '#voiced?' do
@@ -143,10 +139,8 @@ module Pronounce
       end
     end
 
-    describe '#voiceless?' do
-      it 'is the opposite of #voiced?' do
-        expect(Phone.new('JH').voiceless?).to be false
-      end
+    it '#voiceless? is the opposite of #voiced?' do
+      expect(Phone.new('JH').voiceless?).to be false
     end
 
   end
