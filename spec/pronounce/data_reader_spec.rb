@@ -2,11 +2,19 @@ require 'pronounce/data_reader'
 
 module Pronounce
   describe DataReader do
-    subject { DataReader }
+    let(:its) { DataReader }
 
-    its(:articulations) { should include "AA\tvowel\n" }
-    its(:phonations) { should include "AA\tvoiced\n" }
-    its(:pronunciations) { should include ";;; # CMUdict  --  Major Version: 0.07a [102007]\n" }
+    it 'loads the articulations file' do
+      expect(its.articulations).to include "AA\tvowel\n"
+    end
+
+    it 'loads the phonations file' do
+      expect(its.phonations).to include "AA\tvoiced\n"
+    end
+
+    it 'loads the pronunciations file' do
+      expect(its.pronunciations).to include ";;; # CMUdict  --  Major Version: 0.07a [102007]\n"
+    end
 
   end
 end
