@@ -8,7 +8,7 @@ require 'pronounce/syllable_rules/english'
 module Pronounce
   class Word
     def initialize(raw_phones)
-      @phones = raw_phones.map {|symbol| Phone.new symbol }
+      @raw_phones = raw_phones
     end
 
     def syllables
@@ -17,7 +17,7 @@ module Pronounce
 
     private
 
-    attr_reader :phones
+    attr_reader :raw_phones
 
     def split_syllables
       syllables = []
@@ -30,6 +30,10 @@ module Pronounce
         pending_phones << phone
       end
       syllables << Syllable.new(pending_phones)
+    end
+
+    def phones
+      raw_phones.map {|symbol| Phone.new(symbol) }
     end
 
     def new_syllable?(context)
