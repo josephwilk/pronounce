@@ -7,12 +7,13 @@ module Pronounce
   describe SyllableRules do
     describe 'stressed syllables cannot be light' do
       subject do
-        context = Pronounce::SyllabificationContext.new syllables, phones, index
-        SyllableRules[:en]['stressed syllables cannot be light'].evaluate context
+        phones = make_phones(raw_phones)
+        context = Pronounce::SyllabificationContext.new(syllables, phones, index)
+        SyllableRules[:en]['stressed syllables cannot be light'].evaluate(context)
       end
 
       let(:syllables) { [] }
-      let(:phones) { make_phones %w[AE1 B D AH0 K EY2 T S] } # abdicates
+      let(:raw_phones) { %w[AE1 B D AH0 K EY2 T S] } # abdicates
 
       context 'following stressed, unbranching syllable' do
         let(:index) { 1 }
