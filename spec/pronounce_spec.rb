@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'pronounce'
 
 describe Pronounce do
@@ -10,19 +9,19 @@ describe Pronounce do
     end
 
     it 'returns a list of phones' do
-      Pronounce.how_do_i_pronounce('monk').should == [%w[M AH1 NG K]]
+      expect(Pronounce.how_do_i_pronounce('monk')).to eq [%w[M AH1 NG K]]
     end
 
     it 'groups the phones by syllable' do
-      Pronounce.how_do_i_pronounce('monkeys').should == [%w[M AH1 NG], %w[K IY0 Z]]
+      expect(Pronounce.how_do_i_pronounce('monkeys')).to eq [%w[M AH1 NG], %w[K IY0 Z]]
     end
 
     it 'returns nil for unknown words' do
-      Pronounce.how_do_i_pronounce('beeblebrox').should == nil
+      expect(Pronounce.how_do_i_pronounce('beeblebrox')).to be nil
     end
 
     it 'is case insensitive' do
-      Pronounce.how_do_i_pronounce('MoNk').should == [%w[M AH1 NG K]]
+      expect(Pronounce.how_do_i_pronounce('MoNk')).to eq [%w[M AH1 NG K]]
     end
   end
 
