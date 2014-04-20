@@ -17,17 +17,17 @@ module Pronounce
 
       context '/ŋ/ in a cluster' do
         let(:index) { 2 }
-        it { should be :no_new_syllable }
+        it { is_expected.to be :no_new_syllable }
       end
 
       context 'single /ŋ/' do
         let(:index) { 4 }
-        it { should be :no_new_syllable }
+        it { is_expected.to be :no_new_syllable }
       end
 
       context 'other nasals' do
         let(:index) { 6 }
-        it { should be :not_applicable }
+        it { is_expected.to be :not_applicable }
       end
 
     end
