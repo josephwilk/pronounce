@@ -5,9 +5,9 @@ require 'pronounce/word'
 module Pronounce
   describe Word do
     describe '#syllables' do
-      let(:syllables) {
-        Word.new(raw_phones).syllables.map {|syllable| syllable.to_strings }
-      }
+      let(:syllables) do
+        Word.new(raw_phones).syllables.map { |syllable| syllable.to_strings }
+      end
 
       context 'for a word' do
         let(:raw_phones) { %w[M AH1 NG K] } # monk

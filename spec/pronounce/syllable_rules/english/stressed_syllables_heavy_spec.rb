@@ -8,7 +8,7 @@ module Pronounce
     describe 'stressed syllables cannot be light' do
       subject do
         phones = make_phones(raw_phones)
-        syllables = raw_syllables.map {|raw| make_syllable(raw) }
+        syllables = raw_syllables.map { |raw| make_syllable(raw) }
         context = Pronounce::SyllabificationContext.new(syllables, phones, index)
         SyllableRules[:en]['stressed syllables cannot be light'].evaluate(context)
       end

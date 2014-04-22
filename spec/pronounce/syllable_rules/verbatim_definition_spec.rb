@@ -5,7 +5,7 @@ module Pronounce::SyllableRules
     let(:result) { true }
 
     it 'wraps a block with lambda semantics' do
-      definition = VerbatimDefinition.new(proc {|context| return context })
+      definition = VerbatimDefinition.new(proc { |context| return context })
       expect(definition.evaluate(result)).to eq result
     end
 

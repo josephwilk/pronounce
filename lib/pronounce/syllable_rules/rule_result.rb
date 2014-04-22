@@ -25,7 +25,7 @@ module Pronounce
       private
 
       def compare_by(lower_value, attribute, other_attribute)
-        if [attribute, other_attribute].one? {|a| a == lower_value }
+        if [attribute, other_attribute].one? { |a| a == lower_value }
           if attribute == lower_value
             -1
           else
