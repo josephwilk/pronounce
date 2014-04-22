@@ -8,11 +8,12 @@ module Pronounce
     describe 'stressed syllables cannot be light' do
       subject do
         phones = make_phones(raw_phones)
+        syllables = raw_syllables.map {|raw| make_syllable(raw) }
         context = Pronounce::SyllabificationContext.new(syllables, phones, index)
         SyllableRules[:en]['stressed syllables cannot be light'].evaluate(context)
       end
 
-      let(:syllables) { [] }
+      let(:raw_syllables) { [] }
       let(:raw_phones) { %w[AE1 B D AH0 K EY2 T S] } # abdicates
 
       context 'following stressed, unbranching syllable' do
@@ -26,13 +27,13 @@ module Pronounce
       end
 
       context 'following unstressed, unbranching syllable' do
-        let(:syllables) { [make_syllable(%w[AE1 B])] }
+        let(:raw_syllables) { [%w[AE1 B]] }
         let(:index) { 4 }
         it { should be :not_applicable }
       end
 
       context 'following stressed syllable with branching nucleus' do
-        let(:syllables) { [make_syllable(%w[AE1 B]), make_syllable(%w[D AH0])] }
+        let(:raw_syllables) { [%w[AE1 B], %w[D AH0]] }
         let(:index) { 6 }
         it { should be :not_applicable }
       end

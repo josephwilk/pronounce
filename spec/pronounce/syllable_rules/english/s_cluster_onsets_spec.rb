@@ -8,23 +8,24 @@ module Pronounce
     describe '/s/ cluster onsets' do
       subject do
         phones = make_phones(raw_phones)
+        syllables = raw_syllables.map {|raw| make_syllable(raw) }
         context = Pronounce::SyllabificationContext.new(syllables, phones, index)
         SyllableRules[:en]['/s/ cluster onsets'].evaluate(context)
       end
 
-      let(:syllables) { [] }
+      let(:raw_syllables) { [] }
       let(:index) { 3 }
 
       context 'for a voiceless stop or fricative' do
         context 'followed by an approximant preceded by /s/' do
           let(:raw_phones) { %w[EH2 K S P L AH0 N EY1 SH AH0 N] } # explanation
-          let(:syllables) { [make_syllable(%w[EH2 K])] }
+          let(:raw_syllables) { [%w[EH2 K]] }
           it { should be :no_new_syllable }
         end
 
         context 'followed by a vowel preceded by /s/' do
           let(:raw_phones) { %w[IH0 K S P OW1 Z] } # expose
-          let(:syllables) { [make_syllable(%w[IH0 K])] }
+          let(:raw_syllables) { [%w[IH0 K]] }
           it { should be :no_new_syllable }
         end
 
@@ -62,7 +63,7 @@ module Pronounce
       context 'for a voiced stop or fricative' do
         context 'followed by an approximant' do
           let(:raw_phones) { %w[B EY1 S B L EY0] }
-          let(:syllables) { [make_syllable(%w[B EY1])] }
+          let(:raw_syllables) { [%w[B EY1]] }
           it { should be :not_applicable }
         end
 
@@ -74,7 +75,7 @@ module Pronounce
 
       context 'for a voiceless not stop or fricative' do
         let(:raw_phones) { %w[B EY1 S CH Y EY0 ] }
-        let(:syllables) { [make_syllable(%w[B EY1])] }
+        let(:raw_syllables) { [%w[B EY1]] }
         it { should be :not_applicable }
       end
 
