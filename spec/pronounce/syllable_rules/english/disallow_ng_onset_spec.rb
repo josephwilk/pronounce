@@ -9,11 +9,12 @@ module Pronounce
   describe SyllableRules do
     describe '/ng/ cannot start a syllable' do
       subject do
-        context = Pronounce::SyllabificationContext.new [], phones, index
-        SyllableRules[:en]['/ng/ cannot start a syllable'].evaluate context
+        phones = make_phones(raw_phones)
+        context = Pronounce::SyllabificationContext.new([], phones, index)
+        SyllableRules[:en]['/ng/ cannot start a syllable'].evaluate(context)
       end
 
-      let(:phones) { make_phones %w[AA B NG EH NG ER M OW] }
+      let(:raw_phones) { %w[AA B NG EH NG ER M OW] }
 
       context '/ŋ/ in a cluster' do
         let(:index) { 2 }
