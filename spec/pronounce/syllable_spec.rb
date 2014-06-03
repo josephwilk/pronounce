@@ -3,57 +3,64 @@ require 'pronounce/syllable'
 
 module Pronounce
   describe Syllable do
-    subject { make_syllable %w[AE1 D Z] }
+    describe '#coda_contains?' do
+      let(:syllable) { make_syllable(%w(B R AE1 N D)) } # brand
 
-    its(:to_strings) { should == %w[AE1 D Z] }
-    its(:length) { should be 3 }
-
-    context 'with a nucleus and coda' do
-      describe '#coda_contains' do
-        it 'part of the coda is true' do
-          expect(subject.coda_contains? Phone.new('D')).to be true
-        end
+      it 'is false for part of the onset' do
+        expect(syllable.coda_contains? Phone.new('R')).to be false
       end
 
-      its(:light?) { should be false }
-      its(:has_nucleus?) { should be true }
-    end
-
-    context 'with no coda and a nucleus' do
-      context 'which is short' do
-        subject { make_syllable %w[B IH1] }
-
-        its(:light?) { should be true }
+      it 'is false for the nucleus' do
+        expect(syllable.coda_contains? Phone.new('AE1')).to be false
       end
 
-      context 'which is long' do
-        subject { make_syllable %w[B AY1] }
+      it 'is true for part of the coda' do
+        expect(syllable.coda_contains? Phone.new('D')).to be true
+      end
+    end
 
-        its(:light?) { should be false }
+    describe '#has_nucleus?' do
+      it 'is false if there is only an onset (pending syllables only)' do
+        expect(make_syllable(%w(N)).has_nucleus?).to be false
       end
 
-      its(:has_nucleus?) { should be true }
+      it 'is true if there is a nucleus' do
+        expect(make_syllable(%w(AE1 D Z)).has_nucleus?).to be true # adz
+      end
     end
 
-    context 'with an onset only (pending syllables only)' do
-      subject { make_syllable %w[N] }
+    it '#length returns the number of phones in the syllable' do
+      expect(make_syllable(%w(L AO1 R AH0 L)).length).to be 5 # laurel
+    end
 
-      describe '#coda_contains' do
-        it 'part of the onset is false' do
-          expect(subject.coda_contains? Phone.new('N')).to be false
-        end
+    describe '#light?' do
+      # communal
+      it 'is true if there is a no coda and a short nucleus' do
+        expect(make_syllable(%w(K AH0)).light?).to be true
       end
 
-      its(:has_nucleus?) { should be false }
+      it 'is false if there is a long nucleus' do
+        expect(make_syllable(%w(M Y UW1)).light?).to be false
+      end
+
+      it 'is false if there is a nucleus and coda' do
+        expect(make_syllable(%w(N AH0 L)).light?).to be false
+      end
     end
 
-    context 'with a stressed vowel' do
-      its(:stressed?) { should be true }
+    describe '#stressed?' do
+      # stigma
+      it 'is true if the vowel is stressed' do
+        expect(make_syllable(%w(S T IH1 G)).stressed?).to be true
+      end
+
+      it 'is false if the vowel is unstressed' do
+        expect(make_syllable(%w(M AH0)).stressed?).to be false
+      end
     end
 
-    context 'with an unstressed vowel' do
-      subject { make_syllable %w[AH0 N] }
-      its(:stressed?) { should be false }
+    it '#to_strings returns an array of strings' do
+      expect(make_syllable(%w(AE1 D Z)).to_strings).to eq %w(AE1 D Z) # adz
     end
 
   end

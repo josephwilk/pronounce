@@ -18,37 +18,37 @@ module Pronounce
 
       context 'for a vowel preceded by another vowel' do
         let(:index) { 1 }
-        it { should be :new_syllable }
+        it { is_expected.to be :new_syllable }
       end
 
       context 'for a consonant followed by a lower sonority phone' do
         let(:raw_syllables) { [%w[OW]] }
         let(:index) { 2 }
-        it { should be :no_new_syllable }
+        it { is_expected.to be :no_new_syllable }
       end
 
       context 'for a sonority trough' do
         let(:raw_syllables) { [%w[OW]] }
         let(:index) { 3 }
-        it { should be :new_syllable }
+        it { is_expected.to be :new_syllable }
       end
 
       context 'for a phone preceded by a lower sonority phone' do
         let(:raw_syllables) { [%w[OW], %w[AA NG]] }
         let(:index) { 4 }
-        it { should be :no_new_syllable }
+        it { is_expected.to be :no_new_syllable }
       end
 
       context 'for a sonority peak' do
         let(:raw_syllables) { [%w[OW], %w[AA NG]] }
         let(:index) { 5 }
-        it { should be :no_new_syllable }
+        it { is_expected.to be :no_new_syllable }
       end
 
       context 'for a consonant preceded by another consonant of equal sonority' do
         let(:raw_phones) { %w[Y UW1 S F AH0 L] } # useful
         let(:index) { 3 }
-        it { should be :new_syllable }
+        it { is_expected.to be :new_syllable }
       end
 
       context 'for a final' do
@@ -57,25 +57,25 @@ module Pronounce
         context 'consonant' do
           let(:raw_phones) { %w[P AE1 S IH0 NG] } # passing
           let(:raw_syllables) { [%w[P AE1]] }
-          it { should be :no_new_syllable }
+          it { is_expected.to be :no_new_syllable }
         end
 
         context 'vowel preceded by a consonant' do
           let(:raw_phones) { %w[M IH1 L K IY0] } # milky
           let(:raw_syllables) { [%w[M IH1 L]] }
-          it { should be :no_new_syllable }
+          it { is_expected.to be :no_new_syllable }
         end
 
         context 'vowel preceded by a consonant that is part of a coda' do
           let(:raw_index) { 3 }
           let(:phones) { %w[CH EH1 R IY0] } # cherry
-          it { should be :new_syllable }
+          it { is_expected.to be :new_syllable }
         end
 
         context 'vowel preceded by another vowel' do
           let(:raw_phones) { %w[HH AH0 W AY1 IY2] } # Hawaii
           let(:raw_syllables) { [%w[HH AH0]] }
-          it { should be :new_syllable }
+          it { is_expected.to be :new_syllable }
         end
 
       end
@@ -83,7 +83,7 @@ module Pronounce
       context 'for a phone preceded by a lower sonority phone that is part of a coda' do
         let(:raw_phones) { %w[IY1 V N IHO NG] } # evening
         let(:index) { 2 }
-        it { should be :new_syllable }
+        it { is_expected.to be :new_syllable }
       end
 
     end

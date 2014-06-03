@@ -8,5 +8,5 @@ end
 
 group :test do
   gem 'rake'
-  gem 'rspec', '~> 2.14.1'
+  gem 'rspec', '~> 3.0.0'
 end
