@@ -6,10 +6,10 @@ module Pronounce
     subject { SyllabificationContext.new syllables, phones, index }
 
     let(:syllables) { [] }
-    let(:phones) { make_phones(%w[AE0 N D R AA1 M AH0 D AH0]) } # Andromeda
+    let(:phones) { make_phones(%w(AE0 N D R AA1 M AH0 D AH0)) } # Andromeda
 
     describe '#current_onset' do
-      let(:phones) { make_phones(%w[S P R AE1 NG]) } # sprang
+      let(:phones) { make_phones(%w(S P R AE1 NG)) } # sprang
 
       context 'at the start of an onset' do
         let(:index) { 0 }
@@ -37,7 +37,7 @@ module Pronounce
 
       context 'when a previous phone is in a coda' do
         let(:syllables) { [make_syllable(%w[EH1 K])] }
-        let(:phones) { make_phones(%w[EH1 K S P L OY2 T]) } # exploit
+        let(:phones) { make_phones(%w(EH1 K S P L OY2 T)) } # exploit
         let(:index) { 3 }
 
         it 'that phone is not included' do
@@ -46,7 +46,7 @@ module Pronounce
       end
 
       context 'when the previous phone is in a coda' do
-        let(:phones) { make_phones(%w[EH1 K S P L OY2 T]) } # exploit
+        let(:phones) { make_phones(%w(EH1 K S P L OY2 T)) } # exploit
         let(:index) { 2 }
 
         it 'that phone is not included' do
@@ -55,7 +55,7 @@ module Pronounce
       end
 
       context 'when the current phone is in a coda' do
-        let(:phones) { make_phones(%w[T R UW1 TH S]) } # truths
+        let(:phones) { make_phones(%w(T R UW1 TH S)) } # truths
         let(:index) { 3 }
 
         it 'returns an empty array' do
@@ -72,7 +72,7 @@ module Pronounce
       end
 
       context 'when the next vowel has the same phone type as a previous vowel' do
-        let(:phones) { make_phones(%w[IH0 V EH1 N CH AH0 W AH0 L IY0]) } # eventually
+        let(:phones) { make_phones(%w(IH0 V EH1 N CH AH0 W AH0 L IY0)) } # eventually
         let(:index) { 6 }
 
         it 'returns the whole onset' do
@@ -174,7 +174,7 @@ module Pronounce
     end
 
     describe '#sonority_trough?' do
-      let(:phones) { make_phones(%w[B AE1 K P AE2 K ER0]) } # backpacker
+      let(:phones) { make_phones(%w(B AE1 K P AE2 K ER0)) } # backpacker
 
       context 'when current phone is less than next and previous' do
         let(:index) { 5 }
