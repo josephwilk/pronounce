@@ -3,7 +3,7 @@ require 'pronounce'
 describe Pronounce do
   describe '.how_do_i_pronounce' do
     before do
-      Pronounce::DataReader.stub(:pronunciations) {
+      allow(Pronounce::DataReader).to receive(:pronunciations) {
         ["MONK  M AH1 NG K", "MONKEYS  M AH1 NG K IY0 Z"]
       }
     end
