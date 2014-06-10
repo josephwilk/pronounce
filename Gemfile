@@ -7,6 +7,7 @@ group :development do
 end
 
 group :test do
+  gem 'coveralls'
   gem 'rake'
   gem 'rspec', '~> 3.0.0'
 end

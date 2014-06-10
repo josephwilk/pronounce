@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'pronounce/syllable_rules/rule'
 require 'pronounce/syllable_rules/rule_set'
 

@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'pronounce/data_reader'
 
 module Pronounce
