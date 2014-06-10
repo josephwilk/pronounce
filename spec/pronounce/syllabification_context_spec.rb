@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'spec_helper_methods'
 require 'pronounce/syllabification_context'
 
 module Pronounce
