@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'spec_helper_methods'
 require 'pronounce/syllabification_context'
 require 'pronounce/syllable_rules'
 require 'pronounce/syllable_rules/base'
