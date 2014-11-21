@@ -9,5 +9,5 @@ end
 group :test do
   gem 'coveralls'
   gem 'rake'
-  gem 'rspec', '~> 3.0.0'
+  gem 'rspec', '~> 3.0'
 end
