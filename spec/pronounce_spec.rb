@@ -5,7 +5,7 @@ describe Pronounce do
   describe '.how_do_i_pronounce' do
     before do
       allow(Pronounce::DataReader).to receive(:pronunciations) {
-        ["MONK  M AH1 NG K", "MONKEYS  M AH1 NG K IY0 Z"]
+        ['MONK  M AH1 NG K', 'MONKEYS  M AH1 NG K IY0 Z']
       }
     end
 
