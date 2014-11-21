@@ -6,7 +6,7 @@ module Pronounce
     def how_do_i_pronounce(word)
       word.downcase!
       if pronunciations.has_key? word
-        pronunciations[word].syllables.map &:to_strings
+        pronunciations[word].syllables.map(&:to_strings)
       end
     end
 
@@ -17,10 +17,10 @@ module Pronounce
     end
 
     def build_pronunciation_dictionary
-      DataReader.pronunciations.each_with_object({}) {|line, dictionary|
+      DataReader.pronunciations.each_with_object({}) { |line, dictionary|
         word, *raw_phones = line.strip.split
         next unless word && !word.empty? && !word[/[^A-Z]+/]
-        dictionary[word.downcase] = Word.new raw_phones
+        dictionary[word.downcase] = Word.new(raw_phones)
       }
     end
 

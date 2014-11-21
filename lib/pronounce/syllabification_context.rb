@@ -58,8 +58,8 @@ module Pronounce
     end
 
     def next_vowel_index
-      next_vowel = phones.slice(phone_index...phones.length).find &:syllabic?
-      phones.find_index {|phone| next_vowel.equal? phone }
+      next_vowel = phones.slice(phone_index...phones.length).find(&:syllabic?)
+      phones.find_index { |phone| next_vowel.equal? phone }
     end
 
     def valid_pending_syllable_length
