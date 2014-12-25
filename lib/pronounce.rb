@@ -6,7 +6,7 @@ module Pronounce
     def how_do_i_pronounce(word)
       word = word.downcase
       if pronunciations.has_key? word
-        pronunciations[word].syllables.map(&:to_strings)
+        pronunciations[word].pronunciation
       end
     end
 
