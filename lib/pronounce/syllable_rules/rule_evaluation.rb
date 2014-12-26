@@ -64,6 +64,5 @@ module Pronounce::SyllableRules
     def interogative_method_names(interogatives)
       interogatives.map { |interogative| "#{interogative}?" }
     end
-
   end
 end

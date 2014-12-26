@@ -38,5 +38,4 @@ describe Pronounce do
       expect(Pronounce.how_do_i_pronounce('fop(1)')).to be nil
     end
   end
-
 end

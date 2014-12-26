@@ -69,6 +69,5 @@ module Pronounce
     def valid_syllables_length
       completed_length + valid_pending_syllable_length
     end
-
   end
 end

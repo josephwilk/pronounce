@@ -66,6 +66,5 @@ module Pronounce
         end
       end
     end
-
   end
 end

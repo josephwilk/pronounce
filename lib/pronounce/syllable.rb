@@ -46,6 +46,5 @@ module Pronounce
     def sections_with_syllabicity
       phones.chunk { |item| item.syllabic? }
     end
-
   end
 end

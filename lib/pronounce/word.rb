@@ -44,6 +44,5 @@ module Pronounce
       return false if context.word_beginning?
       SyllableRules.evaluate(context) == :new_syllable
     end
-
   end
 end
