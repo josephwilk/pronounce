@@ -4,9 +4,9 @@ require 'pronounce/word'
 module Pronounce
   class << self
     def how_do_i_pronounce(word)
-      word.downcase!
+      word = word.downcase
       if pronunciations.has_key? word
-        pronunciations[word].syllables.map &:to_strings
+        pronunciations[word].pronunciation
       end
     end
 
@@ -17,12 +17,14 @@ module Pronounce
     end
 
     def build_pronunciation_dictionary
-      DataReader.pronunciations.each_with_object({}) {|line, dictionary|
+      DataReader.pronunciations.each_with_object({}) { |line, dictionary|
         word, *raw_phones = line.strip.split
-        next unless word && !word.empty? && !word[/[^A-Z]+/]
-        dictionary[word.downcase] = Word.new raw_phones
+        dictionary[word.downcase] = Word.new(raw_phones) if valid_word?(word)
       }
     end
 
+    def valid_word?(word)
+      !(word.nil? || word.empty? || word[/[^A-Z]+/])
+    end
   end
 end

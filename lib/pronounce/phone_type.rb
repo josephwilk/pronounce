@@ -26,9 +26,9 @@ module Pronounce
 
       def parse_types
         [DataReader.articulations, DataReader.phonations].flatten
-          .map {|line| line.strip.split "\t"}
-          .group_by {|(name, _)| name}
-          .each_with_object({}) {|(name, ((_, manner), (_, phonation))), types|
+          .map { |line| line.strip.split "\t" }
+          .group_by { |(name, _)| name }
+          .each_with_object({}) { |(name, ((_, manner), (_, phonation))), types|
             types[name] = new(name, manner, phonation)
           }
       end
@@ -51,8 +51,8 @@ module Pronounce
       self.manner <=> type.manner if PhoneType === type
     end
 
-    def articulation? *manners
-      manners.map {|name| Articulation[name]}.include? manner
+    def articulation?(*manners)
+      manners.map { |name| Articulation[name] }.include? manner
     end
 
     def short?

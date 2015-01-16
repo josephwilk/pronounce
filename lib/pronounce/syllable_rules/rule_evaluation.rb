@@ -4,7 +4,7 @@ module Pronounce::SyllableRules
   class RuleEvaluation
     class << self
       def result_for(definition, context)
-        new(context).instance_eval &definition
+        new(context).instance_eval(&definition)
       end
 
       private :new
@@ -34,11 +34,11 @@ module Pronounce::SyllableRules
     #### predicates ####
 
     def cannot_be(*objects)
-      lambda {|subject|
-        if interogative_method_names(objects).all? {|method_name|
+      lambda { |subject|
+        if interogative_method_names(objects).all? { |method_name|
           subject.send method_name
         }
-          :no_new_syllable 
+          :no_new_syllable
         else
           :not_applicable
         end
@@ -46,7 +46,7 @@ module Pronounce::SyllableRules
     end
 
     def cannot_match(object)
-      lambda {|subject|
+      lambda { |subject|
         if subject.eql? [Pronounce::Phone.new(object)]
           :no_new_syllable
         else
@@ -62,8 +62,7 @@ module Pronounce::SyllableRules
     attr_reader :context
 
     def interogative_method_names(interogatives)
-      interogatives.map {|interogative| "#{interogative}?" }
+      interogatives.map { |interogative| "#{interogative}?" }
     end
-
   end
 end

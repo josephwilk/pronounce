@@ -11,13 +11,17 @@ module Pronounce
       @raw_phones = raw_phones
     end
 
-    def syllables
-      @syllables ||= split_syllables
+    def pronunciation
+      syllables.map(&:to_strings)
     end
 
     private
 
     attr_reader :raw_phones
+
+    def syllables
+      @syllables ||= split_syllables
+    end
 
     def split_syllables
       syllables = []
@@ -33,13 +37,12 @@ module Pronounce
     end
 
     def phones
-      raw_phones.map {|symbol| Phone.new(symbol) }
+      raw_phones.map { |symbol| Phone.new(symbol) }
     end
 
     def new_syllable?(context)
       return false if context.word_beginning?
       SyllableRules.evaluate(context) == :new_syllable
     end
-
   end
 end
