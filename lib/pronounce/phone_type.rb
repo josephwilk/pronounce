@@ -21,16 +21,13 @@ module Pronounce
       private
 
       def types
-        @types ||= parse_types
+        @types ||= build_types
       end
 
-      def parse_types
-        [DataReader.articulations, DataReader.phonations].flatten
-          .map { |line| line.strip.split "\t" }
-          .group_by { |(name, _)| name }
-          .each_with_object({}) { |(name, ((_, manner), (_, phonation))), types|
-            types[name] = new(name, manner, phonation)
-          }
+      def build_types
+        DataReader.articulations.merge(DataReader.phonations) { |name, manner, phonation|
+          new(name, manner, phonation)
+        }
       end
 
       private :new
