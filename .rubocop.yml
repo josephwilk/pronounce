@@ -1,0 +1,9 @@
+Metrics/LineLength:
+  Max: 100
+  # Lines should be 80, but provide a little buffer from automated complaints.
+
+Style/BlockDelimiters:
+  EnforcedStyle: semantic
+
+Style/Documentation:
+  Enabled: false

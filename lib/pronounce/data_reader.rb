@@ -13,7 +13,7 @@ module Pronounce
       end
 
       def pronunciations
-        File.readlines "#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}"
+        File.readlines("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}")
       end
 
       private

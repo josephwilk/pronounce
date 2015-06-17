@@ -1,14 +1,2 @@
-LineLength:
-  Description: Limit lines to 100 characters.
-  Max: 100
-  # Lines should be 80, but provide a little buffer from automated complaints.
-Style/Blocks:
-  Enabled: false
-Style/CollectionMethods:
-  PreferredMethods:
-    find: find
-    detect: find
-Style/DotPosition:
-  EnforcedStyle: leading
-Style/StringLiterals:
-  EnforcedStyle: single_quotes
+ruby:
+  config_file: .rubocop.yml

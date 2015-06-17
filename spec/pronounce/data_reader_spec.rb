@@ -16,6 +16,5 @@ module Pronounce
     it 'loads the pronunciations file' do
       expect(reader.pronunciations).to include ";;; # CMUdict  --  Major Version: 0.07a [102007]\n"
     end
-
   end
 end
