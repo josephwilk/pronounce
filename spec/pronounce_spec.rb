@@ -6,10 +6,10 @@ describe Pronounce do
     before do
       allow(Pronounce::DataReader).to receive(:pronunciations) {
         [
-          ';;; # CMUdict  --  Major Version: 0.07a [102007]',
-          'FOP  F AO1 P',
-          'FOP(1)  EH1 F OW1 P IY1',
-          'MONKEYS  M AH1 NG K IY0 Z'
+          ";;; # CMUdict  --  Major Version: 0.07a [102007]\n",
+          "FOP  F AO1 P\n",
+          "FOP(1)  EH1 F OW1 P IY1\n",
+          "MONKEYS  M AH1 NG K IY0 Z\n"
         ]
       }
     end
@@ -19,7 +19,7 @@ describe Pronounce do
     end
 
     it 'groups the phones by syllable' do
-      expect(Pronounce.how_do_i_pronounce('monkeys')).to eq [%w[M AH1 NG], %w[K IY0 Z]]
+      expect(Pronounce.how_do_i_pronounce('monkeys')).to eq [%w(M AH1 NG), %w(K IY0 Z)]
     end
 
     it 'returns nil for unknown words' do
