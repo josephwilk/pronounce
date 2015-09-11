@@ -56,6 +56,6 @@ end
 
 ## Ruby Support
 
-* MRI 1.9.3+
-* JRuby 1.7.5+ (1.9 mode only)
-* Rubinius 2.2.6
+* MRI 2.1+
+* JRuby 9.0.0.0.rc1
+* Rubinius 2.5.5

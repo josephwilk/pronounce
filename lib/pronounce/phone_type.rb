@@ -4,37 +4,33 @@ require 'pronounce/data_reader'
 
 module Pronounce
   class PhoneType
-    SHORT_VOWELS = %w[AE AH EH IH UH]
+    SHORT_VOWELS = %w(AE AH EH IH UH)
 
     extend Forwardable
     include Comparable
 
     class << self
       def [](name)
-        if types.has_key? name
+        if types.key? name
           types[name]
         else
-          raise ArgumentError.new('invalid name')
+          fail ArgumentError, 'invalid name'
         end
       end
 
       private
 
       def types
-        @types ||= parse_types
+        @types ||= build_types
       end
 
-      def parse_types
-        [DataReader.articulations, DataReader.phonations].flatten
-          .map { |line| line.strip.split "\t" }
-          .group_by { |(name, _)| name }
-          .each_with_object({}) { |(name, ((_, manner), (_, phonation))), types|
-            types[name] = new(name, manner, phonation)
-          }
+      def build_types
+        DataReader.articulations.merge(DataReader.phonations) { |name, manner, phonation|
+          new(name, manner, phonation)
+        }
       end
 
       private :new
-
     end
 
     attr_reader :name
@@ -47,8 +43,8 @@ module Pronounce
       @phonation = phonation
     end
 
-    def <=>(type)
-      self.manner <=> type.manner if PhoneType === type
+    def <=>(other)
+      manner <=> other.manner if other.is_a? PhoneType
     end
 
     def articulation?(*manners)
@@ -70,6 +66,5 @@ module Pronounce
     protected
 
     attr_reader :manner, :phonation
-
   end
 end

@@ -5,17 +5,22 @@ module Pronounce
 
     class << self
       def articulations
-        File.readlines "#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.phones"
+        dictionary_to_hash("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}.phones")
       end
 
       def phonations
-        File.readlines "#{DATA_DIR}/cmudict.#{CMUDICT_VERSION}.phonations"
+        dictionary_to_hash("#{DATA_DIR}/cmudict.#{CMUDICT_VERSION}.phonations")
       end
 
       def pronunciations
-        File.readlines "#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}"
+        File.readlines("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}")
+      end
+
+      private
+
+      def dictionary_to_hash(file_name)
+        File.readlines(file_name).map { |line| line.chomp.split("\t") }.to_h
       end
     end
-
   end
 end

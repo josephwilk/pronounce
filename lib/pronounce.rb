@@ -5,7 +5,7 @@ module Pronounce
   class << self
     def how_do_i_pronounce(word)
       word = word.downcase
-      if pronunciations.has_key? word
+      if pronunciations.key?(word)
         pronunciations[word].pronunciation
       end
     end
@@ -18,7 +18,7 @@ module Pronounce
 
     def build_pronunciation_dictionary
       DataReader.pronunciations.each_with_object({}) { |line, dictionary|
-        word, *raw_phones = line.strip.split
+        word, *raw_phones = line.split
         dictionary[word.downcase] = Word.new(raw_phones) if valid_word?(word)
       }
     end
