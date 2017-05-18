@@ -19,7 +19,7 @@ module Pronounce
     def build_pronunciation_dictionary
       DataReader.pronunciations.each_with_object({}) { |line, dictionary|
         if valid_word?(line)
-          word, *raw_phones = line.split
+          word, raw_phones = line.split('  ')
           dictionary[word.downcase] = Word.new(raw_phones)
         end
       }

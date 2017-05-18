@@ -37,7 +37,7 @@ module Pronounce
     end
 
     def phones
-      raw_phones.map { |symbol| Phone.new(symbol) }
+      @phones ||= raw_phones.split.map { |symbol| Phone.new(symbol) }
     end
 
     def new_syllable?(context)
