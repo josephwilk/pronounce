@@ -24,7 +24,7 @@ module Pronounce
     end
 
     def valid_word?(word)
-      !(word.nil? || word.empty? || word[/[^A-Z]+/])
+      !(word.nil? || word.empty? || /[^A-Z]+/.match?(word))
     end
   end
 end
