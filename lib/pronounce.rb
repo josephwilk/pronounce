@@ -18,13 +18,15 @@ module Pronounce
 
     def build_pronunciation_dictionary
       DataReader.pronunciations.each_with_object({}) { |line, dictionary|
-        word, *raw_phones = line.split
-        dictionary[word.downcase] = Word.new(raw_phones) if valid_word?(word)
+        if valid_word?(line)
+          word, *raw_phones = line.split
+          dictionary[word.downcase] = Word.new(raw_phones)
+        end
       }
     end
 
-    def valid_word?(word)
-      !(word.nil? || word.empty? || /[^A-Z]+/.match?(word))
+    def valid_word?(line)
+      /\A[A-Z]+  /.match?(line)
     end
   end
 end
