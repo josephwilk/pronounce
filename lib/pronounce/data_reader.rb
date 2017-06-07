@@ -13,13 +13,15 @@ module Pronounce
       end
 
       def pronunciations
-        File.readlines("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}")
+        File.foreach("#{DATA_DIR}/cmudict/cmudict.#{CMUDICT_VERSION}")
       end
 
       private
 
+      DICTIONARY_DELIMITER = "\t"
+
       def dictionary_to_hash(file_name)
-        File.readlines(file_name).map { |line| line.chomp.split("\t") }.to_h
+        File.foreach(file_name).map { |line| line.chomp.split(DICTIONARY_DELIMITER) }.to_h
       end
     end
   end
