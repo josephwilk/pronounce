@@ -12,19 +12,24 @@ module Pronounce
 
     private
 
+    WORD_PRONUNCIATION_DELIMITER = '  '
+
     def pronunciations
       @pronunciations ||= build_pronunciation_dictionary
     end
 
     def build_pronunciation_dictionary
       DataReader.pronunciations.each_with_object({}) { |line, dictionary|
-        word, *raw_phones = line.split
-        dictionary[word.downcase] = Word.new(raw_phones) if valid_word?(word)
+        if valid_word?(line)
+          word, raw_phones = line.split(WORD_PRONUNCIATION_DELIMITER)
+          word.downcase!
+          dictionary[word.freeze] = Word.new(raw_phones)
+        end
       }
     end
 
-    def valid_word?(word)
-      !(word.nil? || word.empty? || word[/[^A-Z]+/])
+    def valid_word?(line)
+      /\A[A-Z]+  /.match?(line)
     end
   end
 end

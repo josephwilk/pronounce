@@ -1,0 +1,10 @@
+inherit_from: .rubocop.yml
+
+Metrics/LineLength:
+  Max: 100
+  # Lines should be 80, but provide a little buffer from automated complaints.
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+  # Hound says it uses the RuboCop defaults, but they no longer specify an
+  # enforced style for string literals so maybe it's out of date.

@@ -1,5 +1,3 @@
-require 'forwardable'
-
 module Pronounce
   class Articulation
     include Comparable
@@ -20,9 +18,9 @@ module Pronounce
         vowel:     Articulation.new(7)
       }
 
-      extend Forwardable
-
-      def_delegators :ARTICULATIONS, :[]
+      def [](name)
+        ARTICULATIONS[name]
+      end
 
       private :new
 
